@@ -37,6 +37,11 @@ public class User {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+
     protected void setPassword(String password) {
         this.password = password;
     }
@@ -82,5 +87,15 @@ public class User {
         return getPositionType() == 2;
     }
 
+    @Override
+    public boolean equals(Object object){
+        if(object instanceof User){
+            return  (((User)object).getName() == name && (((User)object).getUsername() == username));
+
+        }else{
+            return false;
+
+        }
+    }
 
 }

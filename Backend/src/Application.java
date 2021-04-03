@@ -1,18 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-class Remark {
-    protected String remark;
-    protected Date date;
-    protected User user;
-
-    Remark(String remark, Date date, User user) {
-        this.remark = remark;
-        this.date = date;
-        this.user = user;
-    }
-}
-
 public class Application {
 
     private int MAX_MEMBERS = 10;
@@ -24,8 +12,10 @@ public class Application {
     private Boolean isApproved;
     private int status;
 
-    private ArrayList<User> committeeMembers;
-    private ArrayList<Remark> remarks;
+    private ArrayList<Member> committeeMembers;
+    private ArrayList<Member> chair;
+
+    private ArrayList<Comment> remarks;
 
 
     public String getPosition() {
@@ -39,11 +29,12 @@ public class Application {
     public ArrayList getRemarks() {
         return remarks;
     }
-    public void addRemark(String s, User u){
-        if(!committeeMembers.contains(u)) {
+
+    public void addRemark(String s, Member u){
+        if(!committeeMembers.contains(u) ) {
             throw new ApplicationException("User not part of committee");
         }
-        remarks.add(new Remark(s, new Date(), u));
+        remarks.add(new Comment(s, new Date(), u));
     }
 //    public void setRemarks(Remark[] remarks) {
 //        this.remarks = remarks;
@@ -64,4 +55,25 @@ public class Application {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public void addCommitteeMember(Member member){
+        committeeMembers.add(member);
+    }
+
+    public void addChair(Member member){
+        chair.add(member);
+    }
+
+    public Comment seeAUsersComment(Member member){
+        int remarksSize = remarks.size();
+        for(int i = 0; i < remarksSize;  i++){
+            if(((remarks.get(i)).getCommitteeMember()).equals(member)){
+                return remarks.get(i);
+
+            }
+        }
+        return null;  //if nothing found return null
+    }
+
+
 }

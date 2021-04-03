@@ -41,4 +41,5 @@ public class Member extends User{
             chair[numberOfChairs++] = job;
         }
     }
+
 }
