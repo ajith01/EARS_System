@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.util.Date;
+package backendClasses;
+
 
 public class Application {
 
-    private int MAX_MEMBERS = 10;
+    private String jobTitle;
     private String position;
     private String candidateName;
-    private Date dateCreated;
+    private Date startingDate;
+    private Date endingDate;
     private String description;
 
     private Boolean isApproved;
@@ -16,6 +19,18 @@ public class Application {
     private ArrayList<Member> chair;
 
     private ArrayList<Comment> remarks;
+
+
+    public Application(String name, String jobTitle, String description, Date startingDate,
+                       Date endingDate, ArrayList<Member> chair, ArrayList<member> committeeMembers ){
+        candidateName = name;
+        this.jobTitle = jobTitle;
+        this.description = description;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+        this.chair = chair;
+        this.committeeMembers = committeeMembers;
+    }
 
 
     public String getPosition() {

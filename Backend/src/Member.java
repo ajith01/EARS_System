@@ -1,5 +1,4 @@
 public class Member extends User{
-
     //assumes that a person can be only a member of 25 committees and member and as chair
     private final int MAX_SIZE = 25;
     private Application[] committees = new Application[MAX_SIZE];

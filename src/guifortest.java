@@ -1,21 +1,19 @@
-import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class guifortest extends Application {
@@ -25,7 +23,6 @@ public class guifortest extends Application {
         //start the start up process of reading the rules and creating users
 
         //open files
-
 
 
     }
@@ -81,39 +78,64 @@ public class guifortest extends Application {
         primaryStage.show();
 
 
-
         int userval;
 
         java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
+        java.io.File applicationFile = new File("src/applicationData.txt");
+        ArrayList<Application> applications;
+
 
         System.out.println(usrPwdfile.exists());
-        if(!usrPwdfile.exists()){
+        if (! usrPwdfile.exists()) {
             //gui for critial error
             System.exit(0);
         }
 
-        System.out.println(logIn("master","pass",usrPwdfile));
+        System.out.println(logIn("master", "pass", usrPwdfile));
         //didnt set up a user value yet, might set up after if required
         //may use a string builder
 
-        makeNewUser("ada","ada","adsa","asda",12,usrPwdfile);
+        try {
+            makeNewUser("ada", "ada", "adsa", "asda", 12, usrPwdfile);
+        } catch (UserException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        try {
+//            java.io.PrintWriter writer = new PrintWriter(usrPwdfile);
+            makeChangeToUser("ada", "ada", "123", 1, usrPwdfile);
+//            writer.println("Hello");
+//            writer.close();
+
+            //makeAllApplicationsFromFile(applicationFile);
+
+        } catch (UserException u) {
+            System.out.println(u.getMessage());
+        }
+
+
+
+        //makeAllApplicationsFromFile(applicationFile, applications);
+
+
 
     }
 
-    public static boolean logIn(String username, String password, File file){
+    public static boolean logIn(String username, String password, File file) {
         String user;
         String pwd;
 
-        try(
-                Scanner input  = new Scanner(file);
-        ){
-            while(input.hasNext()){
+        try (
+                Scanner input = new Scanner(file);
+        ) {
+            while (input.hasNext()) {
                 user = input.next();  //gets the next user name;
 //                System.out.println("Username " + user );
-                if(user.equals(username)) {
+                if (user.equals(username)) {
                     pwd = input.next();   //gets the password
 
-                    if(pwd.equals(password)){
+                    if (pwd.equals(password)) {
                         return true;
                     }
                 }
@@ -128,22 +150,96 @@ public class guifortest extends Application {
         return false;
     }
 
-    public static void makeNewUser(String username, String password,String name,
-                                   String email, int postition, File file){
+    public static void makeNewUser(String username, String password, String name,
+                                   String email, int postition, File file) throws UserException {
+        try (
+                java.io.FileWriter output = new FileWriter(file, true);
+                java.util.Scanner input = new Scanner(file);
 
-        String user;
-        String pwd;
+        ) {
+            while (input.hasNext()) {
+                if (((input.next()).equals(username))) {
+                    throw new UserException("username already exists");
+                }
+                input.nextLine();  //throws away the rest of the line
+            }
+            output.write("\n" + username + " " + password + " "
+                    + name + " " + email + " " + postition);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void makeChangeToUser(String username, String oldPassword,
+                                        String newData, int dataField, File file)
+            throws UserException {
+        /**datafeild is either 1 , 2 , 3
+         1 changes the password
+         2 changes the name
+         3 changes the email
+         dont give 0 or 4
+
+         This can be made into 3 seperate functions if you dont like this design
+         */
+
+
+        //assumes that username is unique
+        ArrayList<String> temp = new ArrayList<>();
+
+        try (
+                java.io.FileWriter output = new FileWriter(file, true);
+                java.util.Scanner input = new Scanner(file);
+
+        ) {
+            String[] buffer = new String[5];
+
+            while (input.hasNext()) {
+                buffer = (input.nextLine()).split(" ");
+                if (buffer[0].equals(username)) {
+                    if (buffer[1].equals(oldPassword)) {
+                        buffer[dataField] = newData;
+                    } else {
+                        throw new UserException("Password does not match");
+                    }
+                }
+
+                    temp.add(buffer[0] + " " + buffer[1] + " "
+                            + buffer[2] + " " + buffer[3] + " " + buffer[4] + "\n");
+
+            }
+            PrintWriter pw = new PrintWriter(file);
+            pw.print("");
+            pw.close();
+
+            for(int i = 0; i < temp.size(); i++) {
+                output.write(temp.get(i));
+            }
+
+
+            //            clear.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void makeAllApplicationsFromFile(File file, ArrayList<Application> applications){
+
+        ArrayList<Application> returnApplications = new ArrayList<Application>();
 
         try(
-                Scanner input  = new Scanner(file);
-                java.io.PrintWriter output = new PrintWriter(file);
-
+                java.util.Scanner input = new Scanner(file);
         ){
+            input.useDelimiter(",");
             while(input.hasNext()){
-                output.write(input.nextLine());  //gets the next user name;
-            }  //goes to the end of the list
-            output.print(username + " " + password + " "
-            + name +" " + email + " " + postition);
+                String name = input.next();
+                String jobTtle = input.next();
+                String description = input.next();
+                int numberOfChair = input.nextInt();
+                //just need to add members to here, need to restructure the folder, best to do it after everyone pushes their work
+                //so i will leave it for now
+                System.out.println(input.next());
+            }
 
 
 
