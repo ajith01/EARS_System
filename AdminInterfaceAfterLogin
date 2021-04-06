@@ -1,0 +1,230 @@
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class BigoneAdmin extends Application {
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	public void start(Stage primaryStage) {
+		
+		BorderPane pane = new BorderPane();
+		
+		//Headings
+		String[] services = {"Select Service","Manage System Users", "Faculty Search", "Account Setting"}; 
+		ComboBox<String> cbo = new ComboBox<>();
+		ObservableList<String> items = FXCollections.observableArrayList(services);
+		cbo.getItems().addAll(items);
+		cbo.setPrefWidth(400);
+		cbo.setValue("Select Service");
+		
+		
+		//Manage System Users//
+		TextField tfname = new TextField();
+		HBox hBox = new HBox(15);
+		hBox.setPadding(new Insets(20, 10, 10, 10));
+		hBox.getChildren().add(new Label("Name"));
+		hBox.getChildren().add(tfname);
+		hBox.setAlignment(Pos.BASELINE_LEFT);
+
+		
+		TextField tfEmail = new TextField();
+		HBox hBox2 = new HBox(15);
+		hBox2.setPadding(new Insets(20, 10, 10, 10));
+		hBox2.getChildren().add(new Label("Email"));
+		hBox2.getChildren().add(tfEmail);
+		hBox2.setAlignment(Pos.BASELINE_LEFT);
+		
+		TextField tfUsername = new TextField();
+		tfUsername.setAlignment(Pos.CENTER);
+		HBox hBox3 = new HBox(15);
+		hBox3.setPadding(new Insets(20, 10, 10, 10));
+		hBox3.getChildren().add(new Label("Username"));
+		hBox3.getChildren().add(tfUsername);
+		hBox3.setAlignment(Pos.BASELINE_LEFT);
+		
+		TextField tfTemporaryPassword = new TextField();
+		HBox hBox4 = new HBox(15);
+		hBox4.setPadding(new Insets(20, 10, 10, 10));
+		hBox4.getChildren().add(new Label("Temporary Password"));
+		hBox4.getChildren().add(tfTemporaryPassword);
+		hBox4.setAlignment(Pos.BASELINE_LEFT);
+		
+		//Account Type
+		String[] accountType = {"Admin", "Chair", "Member"}; 
+		ComboBox<String> cbo2 = new ComboBox<>();
+		ObservableList<String> items2 = FXCollections.observableArrayList(accountType);
+		cbo2.getItems().addAll(items2);
+		cbo2.setPrefWidth(200);
+		cbo2.setValue("Admin");
+		HBox hBox5 = new HBox(15);
+		hBox5.setPadding(new Insets(20, 10, 10, 10));
+		hBox5.getChildren().add(new Label("Account Type"));
+		hBox5.getChildren().add(cbo2);
+		hBox5.setAlignment(Pos.BASELINE_LEFT);
+		
+		// Button
+		Button btSubmit = new Button("Submit");
+		btSubmit.setStyle("-fx-border-color: black;");
+		HBox hBox6 = new HBox(15);
+		hBox6.setPadding(new Insets(20, 10, 10, 10));
+		hBox6.getChildren().add(btSubmit);
+		hBox6.setAlignment(Pos.CENTER);
+		
+		//Now Put it all in a Vbox
+		VBox vBox = new VBox(10);
+		vBox.setPadding(new Insets(5, 5, 5, 5));
+		vBox.getChildren().addAll(hBox, hBox2, hBox3, hBox4, hBox5, hBox6);
+		vBox.setAlignment(Pos.BASELINE_LEFT);
+		
+		// To Centre it all
+		StackPane panet = new StackPane();
+		panet.getChildren().add(vBox);
+		panet.setStyle("-fx-border-color: black; -fx-background-color: silver;");
+		
+		/*
+		
+		
+		Missing Selecting Commitee Members for committee
+		
+		
+		
+		*/
+		
+		
+		
+		
+		
+//--------------------------------------------------------------------------------------------------------------------//
+		
+		
+		
+		//Job Posting Search//
+		BorderPane paneb = new BorderPane();
+		
+		//TextField
+		TextArea tfa = new TextArea();
+		String description = "Type Job Description Here";
+		tfa.setText(description);
+		tfa.setEditable(true);
+		tfa.setPrefWidth(1000);
+		ScrollPane scrollPane = new ScrollPane(tfa);
+		scrollPane.setPrefWidth(1100);
+		paneb.setCenter(scrollPane);
+		
+		
+		//Three Descriptors at top  // 
+	
+		//Position
+		TextField position = new TextField();
+		String positiondisc = "Position Name";
+		position.setText(positiondisc);
+		position.setEditable(true);
+		
+		//Select a Committee Chair
+		String[] committeeChair = {"List", "List"}; // NOT REQUIRED IN FINAL PRODUCT
+		ComboBox<String> cbocc = new ComboBox<>();
+		ObservableList<String> itemsfromfacultydatabase = FXCollections.observableArrayList(committeeChair); // Array replaced
+		cbocc.getItems().addAll(itemsfromfacultydatabase);
+		cbocc.setPrefWidth(200);
+		cbocc.setValue("Select Chair");
+		
+		//Start Date and // End Date
+	    DatePicker startDate = new DatePicker();
+	    DatePicker endDate = new DatePicker(); //https://stackoverflow.com/questions/33281588/creating-a-calendar-using-javafx
+		
+	    // Put it all together
+		HBox hboxra =  new HBox();
+		hboxra.getChildren().addAll(position, (new Label("    Start Date ")), startDate, (new Label("    End Date ")), endDate, (new Label("  ")), cbocc);
+		hboxra.setPadding(new Insets(20, 10, 10, 10));
+		paneb.setTop(hboxra);
+		
+		// TABLE
+		ScrollPane scrollPaneCommittee = new ScrollPane();
+		scrollPane.setPrefWidth(1100);
+		
+		//----------------------------------------------------------------------------------------------------------------------------------------------------------
+		
+		//Account Setting
+		
+		TextField tfcemail = new TextField ();
+		String tfcemaildescription = "Change Email";
+		tfcemail.setText(tfcemaildescription);
+		tfcemail.setEditable(true);
+		tfcemail.setPrefWidth(200);
+		tfcemail.setAlignment(Pos.CENTER);
+		
+		TextField tfpassword = new TextField ();
+		String tfcpassworddescription = "Change Password";
+		tfpassword.setText(tfcpassworddescription);
+		tfpassword.setEditable(true);
+		tfpassword.setPrefWidth(200);
+		tfpassword.setAlignment(Pos.CENTER);
+		
+		VBox vboxac = new VBox(15);
+		vboxac.setPadding(new Insets(20, 20, 20, 20));
+		vboxac.getChildren().addAll(tfcemail,tfpassword);
+		vboxac.setAlignment(Pos.CENTER);
+			
+		StackPane paneac = new StackPane(); 
+		paneac.getChildren().add(vboxac);
+		
+		
+		
+//------------------------------------------------------------------------------------		
+
+		
+		
+		/*
+		
+		// I need to Figure out how to make it switch
+		
+		cbo.setOnAction((ActionEvent e) action handler {
+		
+		if (cbo.getValue()== "Manage System Users") {
+		Scene scene = new Scene(panet, 300, 300);
+		}
+		
+		else if (cbo.getValue()== "Faculty Search") {
+			Scene scene = new Scene(scrollPane, 300, 300);
+		}
+		
+		else if (cbo.getValue()== "Account Setting") {
+			Scene scene = new Scene(paneac, 300, 300);
+		}
+		
+				
+		});
+		
+		*/
+		
+		
+//----------------------------------------------------------------------------	
+		
+	
+		Scene scene = new Scene(paneac, 300, 300);
+		primaryStage.setTitle("Admin EARS Interface");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+	
+	}
+
+}
