@@ -3,7 +3,7 @@ public class User {
     private String name;
     private int positionType;     // 0 - superadmin , 1 - admin, 2 - member
     private String positionName;  //perhaps redundant
-    private String username;
+    private String username;    // this is a unique field, Primary Key
     private String password;
     private String email;
 

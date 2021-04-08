@@ -1,3 +1,4 @@
+import Backend.src.User;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,8 +13,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoginFontend extends Application {
+public class LoginFrontend extends Application {
 
+    private User currUser;
+    // this user will be used in the main Helper backend file
+
+    public LoginFrontend(){}
     public static void main(String[] args) {   //main method
         launch(args);
     }
@@ -67,6 +72,17 @@ public class LoginFontend extends Application {
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // TODO: implement button handler and user test function
+        // Call set User () after login
+    }
+
+    public void setUser(String user){
+        // currUser = user;
+    }
+
+    public User getUser() {
+        return currUser;
     }
 }
 
