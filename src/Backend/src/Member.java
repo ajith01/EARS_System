@@ -1,8 +1,10 @@
+package Backend.src;
+
 public class Member extends User{
     //assumes that a person can be only a member of 25 committees and member and as chair
     private final int MAX_SIZE = 25;
-    private Application[] committees = new Application[MAX_SIZE];
-    private Application[] chair = new Application[MAX_SIZE];
+    private JobApplication[] committees = new JobApplication[MAX_SIZE];
+    private JobApplication[] chair = new JobApplication[MAX_SIZE];
     private int numberOfCommittees = 0;
     private int numberOfChairs = 0;
 
@@ -25,7 +27,7 @@ public class Member extends User{
         setPositionName("Member");
     }
 
-    public void addToCommittee(Application job){
+    public void addToCommittee(JobApplication job){
         if(MAX_SIZE <= numberOfCommittees){
             throw new ApplicationException("Number of Applications exceeded limit");
         }else {
@@ -33,7 +35,7 @@ public class Member extends User{
         }
     }
 
-    public void addToCommitteeAsChair(Application job){
+    public void addToCommitteeAsChair(JobApplication job){
         if(MAX_SIZE <= numberOfChairs){
             throw new ApplicationException("Number of Applications exceeded limit");
         }else {

@@ -1,3 +1,4 @@
+package Backend.src;
 public class User {
     private String name;
     private int positionType;     // 0 - superadmin , 1 - admin, 2 - member

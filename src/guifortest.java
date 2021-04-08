@@ -13,8 +13,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+
+import Backend.src.*;
 
 public class guifortest extends Application {
 
@@ -78,11 +82,12 @@ public class guifortest extends Application {
         primaryStage.show();
 
 
+        //----------------------Tests ----------------------------///
         int userval;
 
         java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
         java.io.File applicationFile = new File("src/applicationData.txt");
-        ArrayList<Application> applications;
+        ArrayList<JobApplication> applications;
 
 
         System.out.println(usrPwdfile.exists());
@@ -115,9 +120,10 @@ public class guifortest extends Application {
         }
 
 
-
         //makeAllApplicationsFromFile(applicationFile, applications);
 
+
+        //---------------------- End of Tests ----------------------------///
 
 
     }
@@ -204,15 +210,15 @@ public class guifortest extends Application {
                     }
                 }
 
-                    temp.add(buffer[0] + " " + buffer[1] + " "
-                            + buffer[2] + " " + buffer[3] + " " + buffer[4] + "\n");
+                temp.add(buffer[0] + " " + buffer[1] + " "
+                        + buffer[2] + " " + buffer[3] + " " + buffer[4] + "\n");
 
             }
             PrintWriter pw = new PrintWriter(file);
             pw.print("");
             pw.close();
 
-            for(int i = 0; i < temp.size(); i++) {
+            for (int i = 0; i < temp.size(); i++) {
                 output.write(temp.get(i));
             }
 
@@ -223,25 +229,51 @@ public class guifortest extends Application {
         }
     }
 
-    public static void makeAllApplicationsFromFile(File file, ArrayList<Application> applications){
+    public static void makeAllApplicationsFromFile(File file, ArrayList<JobApplication> applications,
+                                                   ArrayList<Member> members) {
 
-        ArrayList<Application> returnApplications = new ArrayList<Application>();
 
-        try(
+        ArrayList<Member> chairList = new ArrayList<Member>();
+        ArrayList<Member> commiteeList = new ArrayList<Member>();
+
+
+        try (
                 java.util.Scanner input = new Scanner(file);
-        ){
+        ) {
             input.useDelimiter(",");
-            while(input.hasNext()){
+            while (input.hasNext()) {
                 String name = input.next();
                 String jobTtle = input.next();
                 String description = input.next();
+                long startDate = input.nextLong();
+                long endDate = input.nextLong();
                 int numberOfChair = input.nextInt();
-                //just need to add members to here, need to restructure the folder, best to do it after everyone pushes their work
-                //so i will leave it for now
-                System.out.println(input.next());
+
+
+                for (int i = 0; i < numberOfChair; i++) {
+                    String chairUsername = input.next();
+                    for (int j = 0; j < members.size(); j++) {
+                        if (chairUsername.equals(members.get(j).getUsername())) {
+                            chairList.add(members.get(j));
+                        }
+                    }
+                }
+
+                int numberOfMembers = input.nextInt();
+
+                for (int i = 0; i < numberOfChair; i++) {
+
+                    String commmiteUsername = input.next();
+                    for (int j = 0; j < members.size(); j++) {
+                        if (commmiteUsername.equals(members.get(j).getUsername())) {
+                            commiteeList.add(members.get(j));
+                        }
+                    }
+                }
+
+                applications.add(new JobApplication(name,jobTtle,description, new Date(startDate)
+                         , new Date(endDate), chairList, commiteeList));
             }
-
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

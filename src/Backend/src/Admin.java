@@ -1,4 +1,4 @@
-package backendClasses;
+package Backend.src;
 public class Admin extends User{
 
     public Admin(String username, String password) {

@@ -1,10 +1,8 @@
+package Backend.src;
 import java.util.ArrayList;
 import java.util.Date;
-package backendClasses;
 
-
-public class Application {
-
+public class JobApplication {
     private String jobTitle;
     private String position;
     private String candidateName;
@@ -21,8 +19,8 @@ public class Application {
     private ArrayList<Comment> remarks;
 
 
-    public Application(String name, String jobTitle, String description, Date startingDate,
-                       Date endingDate, ArrayList<Member> chair, ArrayList<member> committeeMembers ){
+    public JobApplication(String name, String jobTitle, String description, Date startingDate,
+                          Date endingDate, ArrayList<Member> chair, ArrayList<Member> committeeMembers ){
         candidateName = name;
         this.jobTitle = jobTitle;
         this.description = description;
