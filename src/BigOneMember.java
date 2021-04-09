@@ -102,9 +102,13 @@ public class BigOneMember extends Application {
 		tfpassword.setPrefWidth(200);
 		tfpassword.setAlignment(Pos.CENTER);
 
+		// Button
+		Button btSubmitac = new Button("Submit");
+		btSubmitac.setStyle("-fx-border-color: black;");
+
 		VBox vboxac = new VBox(15);
-		vboxac.setPadding(new Insets(20, 20, 20, 20));
-		vboxac.getChildren().addAll(tfcemail, tfpassword);
+		vboxac.setPadding(new Insets(20, 200, 20, 200));
+		vboxac.getChildren().addAll(tfcemail, tfpassword,btSubmitac);
 		vboxac.setAlignment(Pos.CENTER);
 
 		StackPane paneac = new StackPane();

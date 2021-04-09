@@ -11,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class guifortest extends Application {
         Image image = new Image("https://4.img-dpreview.com/files/p/E~TS590x0~articles/4698742202/facebook.jpeg");
         ImageView imageview1 = new ImageView(image);
         imageview1.setFitHeight(100);
-        imageview1.setFitWidth(200);
+        imageview1.setFitWidth(190);
         StackPane paneimage = new StackPane();
         paneimage.getChildren().add(imageview1);
         paneimage.setAlignment(Pos.CENTER);
