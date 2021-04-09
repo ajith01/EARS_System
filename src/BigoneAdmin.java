@@ -40,6 +40,7 @@ public class BigoneAdmin extends Application {
 
 		// Manage System Users//
 		TextField tfname = new TextField();
+		tfname.setPrefWidth(215);
 		HBox hBox = new HBox(15);
 		hBox.setPadding(new Insets(20, 10, 10, 10));
 		hBox.getChildren().add(new Label("Name"));
@@ -47,6 +48,7 @@ public class BigoneAdmin extends Application {
 		hBox.setAlignment(Pos.BASELINE_LEFT);
 
 		TextField tfEmail = new TextField();
+		tfEmail.setPrefWidth(220);
 		HBox hBox2 = new HBox(15);
 		hBox2.setPadding(new Insets(20, 10, 10, 10));
 		hBox2.getChildren().add(new Label("Email"));
@@ -64,7 +66,7 @@ public class BigoneAdmin extends Application {
 		TextField tfTemporaryPassword = new TextField();
 		HBox hBox4 = new HBox(15);
 		hBox4.setPadding(new Insets(20, 10, 10, 10));
-		hBox4.getChildren().add(new Label("Temporary Password"));
+		hBox4.getChildren().add(new Label("Password"));
 		hBox4.getChildren().add(tfTemporaryPassword);
 		hBox4.setAlignment(Pos.BASELINE_LEFT);
 
@@ -73,7 +75,7 @@ public class BigoneAdmin extends Application {
 		ComboBox<String> cbo2 = new ComboBox<>();
 		ObservableList<String> items2 = FXCollections.observableArrayList(accountType);
 		cbo2.getItems().addAll(items2);
-		cbo2.setPrefWidth(200);
+		cbo2.setPrefWidth(222);
 		cbo2.setValue("Admin");
 		HBox hBox5 = new HBox(15);
 		hBox5.setPadding(new Insets(20, 10, 10, 10));
@@ -92,7 +94,7 @@ public class BigoneAdmin extends Application {
 		// Now Put it all in a Vbox
 		VBox vBox = new VBox(10);
 		vBox.setPadding(new Insets(5, 5, 5, 5));
-		vBox.getChildren().addAll(hBox, hBox2, hBox3, hBox4, hBox5, hBox6);
+		vBox.getChildren().addAll(hBox5, hBox, hBox2, hBox3, hBox4, hBox6);
 		vBox.setAlignment(Pos.BASELINE_LEFT);
 
 		// To Centre it all
