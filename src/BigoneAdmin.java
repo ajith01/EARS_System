@@ -4,13 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -155,9 +149,33 @@ public class BigoneAdmin extends Application {
 		hboxra.setPadding(new Insets(20, 10, 10, 10));
 		paneb.setTop(hboxra);
 
-		// TABLE
-		ScrollPane scrollPaneCommittee = new ScrollPane();
-		scrollPane.setPrefWidth(1100);
+		// Commitee Slection
+		Button btSubmitjob = new Button("Submit");
+		btSubmitjob.setStyle("-fx-border-color: black;");
+		String[] committee = { "Danyal", "Ajith", "Arnav",};
+		ListView<String> lv = new ListView<>(FXCollections.observableArrayList(committee));
+		lv.setPrefSize(400, 400);
+		lv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+			// Event Handler
+		btSubmitjob.setOnAction(e->{
+			lv.getSelectionModel().selectedItemProperty().addListener(
+					ov -> {
+						for (Integer i: lv.getSelectionModel().getSelectedIndices()) {
+							///Add to commitee members to job
+						}
+					});});
+
+
+		ScrollPane scrollPaneCommittee = new ScrollPane(lv);
+		scrollPaneCommittee.setPrefWidth(1000);
+
+		BorderPane scrollpaneandbutton = new BorderPane();
+		scrollpaneandbutton.setPadding(new Insets(20, 10, 10, 10));
+		scrollpaneandbutton.setTop(new Label("Committee Selection, (Hold Shift To Select Multiple Members)"));
+		scrollpaneandbutton.setCenter(scrollPaneCommittee);
+		scrollpaneandbutton.setBottom(btSubmitjob);
+		paneb.setBottom(scrollpaneandbutton);
 
 		// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
