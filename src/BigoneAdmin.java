@@ -89,7 +89,7 @@ public class BigoneAdmin extends Application {
 		HBox hBox6 = new HBox(15);
 		hBox6.setPadding(new Insets(20, 10, 10, 10));
 		hBox6.getChildren().add(btSubmit);
-		hBox6.setAlignment(Pos.CENTER);
+		hBox6.setAlignment(Pos.BASELINE_LEFT);
 
 		// Now Put it all in a Vbox
 		VBox vBox = new VBox(10);
