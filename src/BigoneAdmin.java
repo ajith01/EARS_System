@@ -115,6 +115,7 @@ public class BigoneAdmin extends Application {
 
 		// Job Posting Search//
 		BorderPane paneb = new BorderPane();
+		paneb.setPadding(new Insets(5, 5, 5, 5));
 
 		// TextField
 		TextArea tfa = new TextArea();
