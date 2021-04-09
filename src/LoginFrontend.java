@@ -73,6 +73,11 @@ public class LoginFrontend extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        //btSubmit.set
+
+        // frineds nice
+        //sdfksdfas
+
         // TODO: implement button handler and user test function
         // Call set User () after login
     }
