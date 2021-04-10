@@ -5,23 +5,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class BigoneAdmin extends Application {
+public class BigoneAdmin extends Pane {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 
-	public void start(Stage primaryStage) {
+	public Pane setUp() {
 
 		BorderPane pane = new BorderPane();
-
-		// Lmao lets be friends
 
 		// Headings
 		String[] services = { "Select Service", "Manage System Users", "Faculty Search", "Account Setting" };
@@ -96,15 +88,6 @@ public class BigoneAdmin extends Application {
 		panet.getChildren().add(vBox);
 		panet.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
-		/*
-		 * 
-		 * 
-		 * Missing Selecting Commitee Members for committee
-		 * 
-		 * 
-		 * 
-		 */
-
 //--------------------------------------------------------------------------------------------------------------------//
 
 		// Job Posting Search//
@@ -122,7 +105,6 @@ public class BigoneAdmin extends Application {
 		paneb.setCenter(scrollPane);
 
 		// Three Descriptors at top //
-
 		// Position
 		TextField position = new TextField();
 		String positiondisc = "Position Name";
@@ -206,14 +188,6 @@ public class BigoneAdmin extends Application {
 
 		StackPane paneac = new StackPane();
 		paneac.getChildren().add(vboxac);
-		
-		Scene scene = new Scene(pane, 1200, 800);
-		primaryStage.setTitle("Admin EARS Interface");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
-		
-		
 
 //------------------------------------------------------------------------------------		
 
@@ -246,7 +220,7 @@ public class BigoneAdmin extends Application {
 
 //----------------------------------------------------------------------------	
 
-
+		return pane;
 
 	}
 
