@@ -24,8 +24,7 @@ public class LoginFrontend extends Application {
 //    }
 
     public void start(Stage primaryStage) {
-//        // Image
-        Image image = new Image("https://4.img-dpreview.com/files/p/E~TS590x0~articles/4698742202/facebook.jpeg");
+        Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxBPBAczjUp-JFp4P5eTcmU5_0ECShsY2mw&usqp=CAU");
         ImageView imageview1 = new ImageView(image);
         imageview1.setFitHeight(100);
         imageview1.setFitWidth(200);
@@ -35,6 +34,7 @@ public class LoginFrontend extends Application {
 
         // Username
         TextField tfUsername = new TextField();
+        tfUsername.setPrefWidth(202);
         HBox hBox = new HBox(15);
         hBox.setPadding(new Insets(20, 10, 10, 10));
         hBox.getChildren().add(new Label("Username"));
@@ -42,6 +42,7 @@ public class LoginFrontend extends Application {
 
         // Password
         TextField tfpassword = new TextField();
+        tfpassword.setPrefWidth(202);
         HBox hBox2 = new HBox(15);
         hBox2.setPadding(new Insets(20, 10, 10, 10));
         hBox2.getChildren().add(new Label("Password "));
@@ -69,7 +70,7 @@ public class LoginFrontend extends Application {
         pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
         Scene scene = new Scene(pane, 400, 400);
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("EARS LOGIN");
         primaryStage.setScene(scene);
         primaryStage.show();
 
