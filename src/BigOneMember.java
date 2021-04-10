@@ -38,7 +38,6 @@ public class BigOneMember extends Application {
 		
 //------------------------------------------------------------------------------------------			
 		// Applicant Review
-
 		// Applicant Review
 
 		BorderPane paneapplicant = new BorderPane();
@@ -48,31 +47,33 @@ public class BigOneMember extends Application {
 		ComboBox<String> cboapplicants = new ComboBox<>();
 		ObservableList<String> apps = FXCollections.observableArrayList(Applicants);
 		cboapplicants.getItems().addAll(apps);
-		cboapplicants.setPrefWidth(400);
+		cboapplicants.setPrefWidth(1000);
 		cboapplicants.setValue("Select Applicant");
 
 		paneapplicant.setTop(cboapplicants);
 
 		BorderPane paneSpecificApplicant = new BorderPane();
 		paneSpecificApplicant.setPadding(new Insets(5, 5, 5, 5)); /// CHange
-		paneSpecificApplicant.setPrefHeight(1000);
+		paneSpecificApplicant.setPrefHeight(700);
 		paneSpecificApplicant.setPrefWidth(1000);
 
 		cboapplicants.setOnAction(e-> {
 			if (cboapplicants.getValue() == "Dan") {
 
-				paneSpecificApplicant.getChildren().add(setupPane(1000));
+				paneSpecificApplicant.setCenter(setupPane(1000));
 			}
 		} );
 
 		paneapplicant.setCenter(paneSpecificApplicant);
+		BorderPane.setAlignment(paneSpecificApplicant, Pos.CENTER);
 
 
 		//Submit button
 		Button btSubmit = new Button("Submit");
 		btSubmit.setStyle("-fx-border-color: black;");
 		paneapplicant.setBottom(btSubmit);
-			
+		BorderPane.setAlignment(btSubmit, Pos.CENTER);
+
 
 //------------------------------------------------------------------------------------------	
 		// Account Setting
@@ -161,19 +162,20 @@ public class BigOneMember extends Application {
 		ScrollPane scrollPane = new ScrollPane(tfa);
 		scrollPane.setPrefWidth(1000);
 
-		TextArea tfab = new TextArea();
-		String descriptionb = "Comments for Applicant Review";
-		tfab.setText(descriptionb);
-		tfab.setEditable(true);
-		tfab.setPrefWidth(1000);
-		ScrollPane scrollPaneb = new ScrollPane(tfab);
-		scrollPaneb.setPrefWidth(1000);
+		TextArea comments = new TextArea();
+		String descriptioncomments = "Comments for Applicant Review";
+		comments.setText(descriptioncomments);
+		comments.setEditable(true);
+		comments.setPrefWidth(1000);
+		ScrollPane scrollPanecomments = new ScrollPane(comments);
+		scrollPanecomments.setPrefWidth(1000);
+		scrollPanecomments.setPadding(new Insets(5, 5, 5, 5));
 
 		BorderPane top = new BorderPane();
 		top.setPadding(new Insets(5, 5, 5, 5));
 		top.setTop(JobName);
 		top.setCenter(tfa);
-		top.setBottom(tfab);
+		top.setBottom(scrollPanecomments);
 
 		String[] progress = { "Pending Review", "Hired", "Denied" };
 		ComboBox<String> cboprogress = new ComboBox<>();
@@ -184,16 +186,16 @@ public class BigOneMember extends Application {
 
 		TextArea tfAllcomments = new TextArea();
 		String descriptionAllcomments = "All Applicant Review Comments";
-		tfab.setText(descriptionAllcomments);
-		tfab.setEditable(false);
-		tfab.setPrefWidth(1000);
+		tfAllcomments.setText(descriptionAllcomments);
+		tfAllcomments.setEditable(false);
+		tfAllcomments.setPrefWidth(1000);
 		ScrollPane scrollPaneAllcomments = new ScrollPane(tfAllcomments);
-		scrollPaneb.setPrefWidth(1000);
+		scrollPaneAllcomments.setPrefWidth(1000);
 
 		BorderPane mid = new BorderPane();
 		mid.setPadding(new Insets(5, 5, 5, 5));
 		mid.setTop(cboprogress);
-		mid.setCenter(scrollPaneb);
+		mid.setCenter(scrollPaneAllcomments);
 
 		BorderPane apinfo = new BorderPane();
 		apinfo.setPrefHeight(1000);
