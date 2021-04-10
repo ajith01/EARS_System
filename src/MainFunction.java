@@ -1,182 +1,21 @@
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import Backend.src.JobApplication;
+import Backend.src.Member;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
-import Backend.src.*;
-
-public class guifortest extends Application {
-
-    public static void main(String[] args) {   //main method
-        launch(args);
-        //start the start up process of reading the rules and creating users
-
-        //open files
-
-
-    }
-
-    public void start(Stage primaryStage) {
-//        // Image
-
+public class MainFunction {
+    public static void main(String[] args) {
         java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
         java.io.File applicationFile = new File("src/applicationData.txt");
-        ArrayList<JobApplication> applications = new ArrayList<>();
-        ArrayList<Member> members = new ArrayList<>();
-
-        if (! usrPwdfile.exists()) {
-            //gui for critial error
-            System.exit(0);
-        }
-
-        //check if the file exists
-        if (! applicationFile.exists()) {
-            //gui for critial error
-            System.exit(0);
-        }
-
-
-
-        Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxBPBAczjUp-JFp4P5eTcmU5_0ECShsY2mw&usqp=CAU");
-        ImageView imageview1 = new ImageView(image);
-        imageview1.setFitHeight(100);
-        imageview1.setFitWidth(200);
-        StackPane paneimage = new StackPane();
-        paneimage.getChildren().add(imageview1);
-        paneimage.setAlignment(Pos.CENTER);
-
-
-        // Username
-        TextField tfUsername = new TextField();
-        tfUsername.setPrefWidth(202);
-        HBox hBox = new HBox(15);
-        hBox.setPadding(new Insets(20, 10, 10, 10));
-        hBox.getChildren().add(new Label("Username"));
-        hBox.getChildren().add(tfUsername);
-
-        // Password
-        TextField tfpassword = new TextField();
-        tfpassword.setPrefWidth(202);
-        HBox hBox2 = new HBox(15);
-        hBox2.setPadding(new Insets(20, 10, 10, 10));
-        hBox2.getChildren().add(new Label("Password "));
-        hBox2.getChildren().add(tfpassword);
-
-        // Button
-        Button btSubmit = new Button("Submit");
-        btSubmit.setStyle("-fx-border-color: black;");
-        HBox hBox3 = new HBox(15);
-        hBox3.setPadding(new Insets(20, 10, 10, 10));
-        hBox3.getChildren().add(btSubmit);
-        hBox3.setAlignment(Pos.CENTER);
-
-        // Put 3 elements into Vbox
-        VBox vBox = new VBox(10);
-        vBox.setPadding(new Insets(5, 5, 5, 5));
-        vBox.getChildren().addAll(paneimage, hBox, hBox2, hBox3);
-//        vBox.getChildren().addAll( hBox, hBox2, hBox3);
-
-        vBox.setAlignment(Pos.CENTER);
-
-        // To Centre it all
-        StackPane pane = new StackPane();
-        pane.getChildren().add(vBox);
-        pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
-
-        Scene scene = new Scene(pane, 400, 400);
-        primaryStage.setTitle("EARS LOGIN");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        btSubmit.setOnAction(e-> {
-            int counter = 0;
-            for(int i = 0 ; i <1; i++) {
-
-                if (logIn(tfUsername.getText(), tfpassword.getText(), usrPwdfile)) {
-                    primaryStage.hide();
-
-                    System.out.println("Sucess");
-
-
-                    makeMembersAtStartUp(usrPwdfile, members);
-                    //always make members before applications
-                    makeAllApplicationsFromFile(applicationFile, applications, members);
-
-                } else {
-                    tfUsername.setText("Incorrect Enrty");
-                    tfpassword.setText("Incorrect Entry");
-                    System.exit(0);
-                }
-            }
-        });
-
-//        Stage stage = new Stage();
-//        stage.setTitle("Second Stage");
-
-
-
-
-
-        //----------------------Tests ----------------------------///
-        int userval;
-
-        if (! usrPwdfile.exists()) {
-            //gui for critial error
-            System.exit(0);
-        }
-
-        //check if the file exists
-        if (! applicationFile.exists()) {
-            //gui for critial error
-            System.exit(0);
-        }
-
-
-        System.out.println(logIn("master", "pass", usrPwdfile));
-        //didnt set up a user value yet, might set up after if required
-        //may use a string builder
-
-        try {
-            makeNewUser("ada", "ada", "adsa", "asda", 12, usrPwdfile);
-        } catch (UserException e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        try {
-//            java.io.PrintWriter writer = new PrintWriter(usrPwdfile);
-            makeChangeToUser("ada", "ada", "123", 1, usrPwdfile);
-//            writer.println("Hello");
-//            writer.close();
-
-            //makeAllApplicationsFromFile(applicationFile);
-
-        } catch (UserException u) {
-            System.out.println(u.getMessage());
-        }
-
-
-        //makeAllApplicationsFromFile(applicationFile, applications);
-
-
-        //---------------------- End of Tests ----------------------------///
+        ArrayList<JobApplication> applications;
+        ArrayList<Member> members;
 
 
     }
+
 
     public static boolean logIn(String username, String password, File file) {
         String user;
@@ -327,8 +166,8 @@ public class guifortest extends Application {
                     }
                 }
 
-                applications.add(new JobApplication(name,jobTtle,description, new Date(startDate)
-                         , new Date(endDate), chairList, commiteeList));
+                applications.add(new JobApplication(name, jobTtle, description, new Date(startDate)
+                        , new Date(endDate), chairList, commiteeList));
             }
 
         } catch (FileNotFoundException e) {
@@ -337,7 +176,7 @@ public class guifortest extends Application {
 
     }
 
-    public static void makeMembersAtStartUp(File file, ArrayList<Member> members){
+    public static void makeMembersAtStartUp(File file, ArrayList<Member> members) {
         /**
          * This function will make member class from the information given in the password file
          * and and it will make changes to the given main array to have the classes
@@ -349,6 +188,7 @@ public class guifortest extends Application {
                 //create a scanner class
                 java.util.Scanner input = new Scanner(file);
         ) {
+            int count = 0;
             while (input.hasNext()) {
                 //get the values in the order that they exist in the textfile
                 String username = input.next();
@@ -358,9 +198,9 @@ public class guifortest extends Application {
                 String position = input.next();
 
                 //make into a member class and add it to the array
-                members.add( new Member(name,email,username,password,position));
+                members.add(new Member(name, email, username, password, position));
 
-                }
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -368,5 +208,4 @@ public class guifortest extends Application {
 
 
     }
-
 }
