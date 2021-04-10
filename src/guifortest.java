@@ -135,11 +135,10 @@ public class guifortest extends Application {
         ) {
             while (input.hasNext()) {
                 user = input.next();  //gets the next user name;
-//                System.out.println("Username " + user );
                 if (user.equals(username)) {
                     pwd = input.next();   //gets the password
 
-                    if (pwd.equals(password)) {
+                    if (pwd.equals(password)) {   //check if password is equal
                         return true;
                     }
                 }
@@ -147,15 +146,21 @@ public class guifortest extends Application {
 
             }
 
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {  //if there is an exception
             e.printStackTrace();
         }
 
-        return false;
+        return false;                        //if none found
     }
 
     public static void makeNewUser(String username, String password, String name,
                                    String email, int postition, File file) throws UserException {
+        /**
+         * This function will make changes to the given text fules if a unique username is given, throw an expection if
+         * the user name is not unique.
+
+         */
+
         try (
                 java.io.FileWriter output = new FileWriter(file, true);
                 java.util.Scanner input = new Scanner(file);
@@ -167,6 +172,7 @@ public class guifortest extends Application {
                 }
                 input.nextLine();  //throws away the rest of the line
             }
+            //makes a string and writes it out to file
             output.write("\n" + username + " " + password + " "
                     + name + " " + email + " " + postition);
 
@@ -196,7 +202,7 @@ public class guifortest extends Application {
                 java.util.Scanner input = new Scanner(file);
 
         ) {
-            String[] buffer = new String[5];
+            String[] buffer;
 
             while (input.hasNext()) {
                 buffer = (input.nextLine()).split(" ");
@@ -276,6 +282,41 @@ public class guifortest extends Application {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static void makeMembersAtStartUp(File file, Member[] members){
+        /**
+         * This function will make member class from the information given in the password file
+         * and and it will make changes to the given main array to have the classes
+         * assumes that there are no members in the array
+         */
+
+
+
+
+        try (
+                //create a scanner class
+                java.util.Scanner input = new Scanner(file);
+        ) {
+            int count = 0;
+            while (input.hasNext()) {
+                //get the values in the order that they exist in the textfile
+                String username = input.next();
+                String password = input.next();
+                String name = input.next();
+                String email = input.next();
+                String position = input.next();
+
+                //make into a member class and add it to the array
+                members[count++] = new Member(name,email,username,password,position);
+
+                }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
