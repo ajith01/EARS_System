@@ -19,9 +19,9 @@ public class LoginFrontend extends Application {
     // this user will be used in the main Helper backend file
 
     public LoginFrontend(){}
-    public static void main(String[] args) {   //main method
-        launch(args);
-    }
+//    public static void main(String[] args) {   //main method
+//        launch(args);
+//    }
 
     public void start(Stage primaryStage) {
 //        // Image

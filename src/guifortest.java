@@ -15,6 +15,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import Backend.src.*;
 
@@ -31,6 +32,25 @@ public class guifortest extends Application {
 
     public void start(Stage primaryStage) {
 //        // Image
+
+        java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
+        java.io.File applicationFile = new File("src/applicationData.txt");
+        ArrayList<JobApplication> applications = new ArrayList<>();
+        ArrayList<Member> members = new ArrayList<>();
+
+        if (! usrPwdfile.exists()) {
+            //gui for critial error
+            System.exit(0);
+        }
+
+        //check if the file exists
+        if (! applicationFile.exists()) {
+            //gui for critial error
+            System.exit(0);
+        }
+
+
+
         Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxBPBAczjUp-JFp4P5eTcmU5_0ECShsY2mw&usqp=CAU");
         ImageView imageview1 = new ImageView(image);
         imageview1.setFitHeight(100);
@@ -82,20 +102,49 @@ public class guifortest extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        btSubmit.setOnAction(e-> {
+            int counter = 0;
+            for(int i = 0 ; i <1; i++) {
+
+                if (logIn(tfUsername.getText(), tfpassword.getText(), usrPwdfile)) {
+                    primaryStage.hide();
+
+                    System.out.println("Sucess");
+
+
+                    makeMembersAtStartUp(usrPwdfile, members);
+                    //always make members before applications
+                    makeAllApplicationsFromFile(applicationFile, applications, members);
+
+                } else {
+                    tfUsername.setText("Incorrect Enrty");
+                    tfpassword.setText("Incorrect Entry");
+                    System.exit(0);
+                }
+            }
+        });
+
+//        Stage stage = new Stage();
+//        stage.setTitle("Second Stage");
+
+
+
+
 
         //----------------------Tests ----------------------------///
         int userval;
 
-        java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
-        java.io.File applicationFile = new File("src/applicationData.txt");
-        ArrayList<JobApplication> applications;
-
-
-        System.out.println(usrPwdfile.exists());
         if (! usrPwdfile.exists()) {
             //gui for critial error
             System.exit(0);
         }
+
+        //check if the file exists
+        if (! applicationFile.exists()) {
+            //gui for critial error
+            System.exit(0);
+        }
+
 
         System.out.println(logIn("master", "pass", usrPwdfile));
         //didnt set up a user value yet, might set up after if required
@@ -288,7 +337,7 @@ public class guifortest extends Application {
 
     }
 
-    public static void makeMembersAtStartUp(File file, Member[] members){
+    public static void makeMembersAtStartUp(File file, ArrayList<Member> members){
         /**
          * This function will make member class from the information given in the password file
          * and and it will make changes to the given main array to have the classes
@@ -296,13 +345,10 @@ public class guifortest extends Application {
          */
 
 
-
-
         try (
                 //create a scanner class
                 java.util.Scanner input = new Scanner(file);
         ) {
-            int count = 0;
             while (input.hasNext()) {
                 //get the values in the order that they exist in the textfile
                 String username = input.next();
@@ -312,7 +358,7 @@ public class guifortest extends Application {
                 String position = input.next();
 
                 //make into a member class and add it to the array
-                members[count++] = new Member(name,email,username,password,position);
+                members.add( new Member(name,email,username,password,position));
 
                 }
 
