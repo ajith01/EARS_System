@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,7 +24,7 @@ public class LoginFrontend {
 //        launch(args);
 //    }
 
-    public Scene setUp(Stage primaryStage) {
+    public Pane setUp(Stage primaryStage) {
         Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxBPBAczjUp-JFp4P5eTcmU5_0ECShsY2mw&usqp=CAU");
         ImageView imageview1 = new ImageView(image);
         imageview1.setFitHeight(100);
@@ -69,9 +70,7 @@ public class LoginFrontend {
         pane.getChildren().add(vBox);
         pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
-        Scene scene = new Scene(pane, 400, 400);
-
-        return scene;
+        return pane;
 
 
         /*primaryStage.setTitle("EARS LOGIN");
