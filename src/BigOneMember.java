@@ -38,7 +38,6 @@ public class BigOneMember extends Application {
 		
 //------------------------------------------------------------------------------------------			
 		// Applicant Review
-
 		// Applicant Review
 
 		BorderPane paneapplicant = new BorderPane();
@@ -48,31 +47,33 @@ public class BigOneMember extends Application {
 		ComboBox<String> cboapplicants = new ComboBox<>();
 		ObservableList<String> apps = FXCollections.observableArrayList(Applicants);
 		cboapplicants.getItems().addAll(apps);
-		cboapplicants.setPrefWidth(400);
+		cboapplicants.setPrefWidth(1000);
 		cboapplicants.setValue("Select Applicant");
 
 		paneapplicant.setTop(cboapplicants);
 
 		BorderPane paneSpecificApplicant = new BorderPane();
 		paneSpecificApplicant.setPadding(new Insets(5, 5, 5, 5)); /// CHange
-		paneSpecificApplicant.setPrefHeight(1000);
+		paneSpecificApplicant.setPrefHeight(700);
 		paneSpecificApplicant.setPrefWidth(1000);
 
 		cboapplicants.setOnAction(e-> {
 			if (cboapplicants.getValue() == "Dan") {
 
-				paneSpecificApplicant.getChildren().add(setupPane(1000));
+				paneSpecificApplicant.setCenter(setupPane(1000));
 			}
 		} );
 
 		paneapplicant.setCenter(paneSpecificApplicant);
+		BorderPane.setAlignment(paneSpecificApplicant, Pos.CENTER);
 
 
 		//Submit button
 		Button btSubmit = new Button("Submit");
 		btSubmit.setStyle("-fx-border-color: black;");
 		paneapplicant.setBottom(btSubmit);
-			
+		BorderPane.setAlignment(btSubmit, Pos.CENTER);
+
 
 //------------------------------------------------------------------------------------------	
 		// Account Setting
