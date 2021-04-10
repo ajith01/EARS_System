@@ -70,14 +70,10 @@ public class LoginFrontend extends Application {
         pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
         Scene scene = new Scene(pane, 400, 400);
-        primaryStage.setTitle("EARS LOGIN");
+        /*primaryStage.setTitle("EARS LOGIN");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show(); */
 
-        //btSubmit.set
-
-        // frineds nice
-        //sdfksdfas
 
         // TODO: implement button handler and user test function
         // Call set User () after login
