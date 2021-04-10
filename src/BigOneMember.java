@@ -13,19 +13,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class BigOneMember extends Application {
+public class BigOneMember extends Pane {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	public void start(Stage primaryStage) {
+	public Pane setUp() {
 
 		BorderPane pane = new BorderPane();
 		String[] services = { "Select Service", "Review Applicants", "Account Setting" };
@@ -106,12 +99,7 @@ public class BigOneMember extends Application {
 
 		// ------------------------------------------------------------------------------------------
 
-		// To Centre it all
 
-		Scene scene = new Scene(pane, 800, 600);
-		primaryStage.setTitle("Login");
-		primaryStage.setScene(scene);
-		primaryStage.show();
 		
 		
 		//------------------------------------------------------------------------------------		
@@ -139,8 +127,8 @@ public class BigOneMember extends Application {
 					
 
 		//----------------------------------------------------------------------------	
-		
-		
+
+		return pane;
 		
 
 	}
