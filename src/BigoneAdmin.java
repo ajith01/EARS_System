@@ -4,13 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -40,6 +34,7 @@ public class BigoneAdmin extends Application {
 
 		// Manage System Users//
 		TextField tfname = new TextField();
+		tfname.setPrefWidth(215);
 		HBox hBox = new HBox(15);
 		hBox.setPadding(new Insets(20, 10, 10, 10));
 		hBox.getChildren().add(new Label("Name"));
@@ -47,6 +42,7 @@ public class BigoneAdmin extends Application {
 		hBox.setAlignment(Pos.BASELINE_LEFT);
 
 		TextField tfEmail = new TextField();
+		tfEmail.setPrefWidth(220);
 		HBox hBox2 = new HBox(15);
 		hBox2.setPadding(new Insets(20, 10, 10, 10));
 		hBox2.getChildren().add(new Label("Email"));
@@ -64,7 +60,7 @@ public class BigoneAdmin extends Application {
 		TextField tfTemporaryPassword = new TextField();
 		HBox hBox4 = new HBox(15);
 		hBox4.setPadding(new Insets(20, 10, 10, 10));
-		hBox4.getChildren().add(new Label("Temporary Password"));
+		hBox4.getChildren().add(new Label("Password"));
 		hBox4.getChildren().add(tfTemporaryPassword);
 		hBox4.setAlignment(Pos.BASELINE_LEFT);
 
@@ -73,7 +69,7 @@ public class BigoneAdmin extends Application {
 		ComboBox<String> cbo2 = new ComboBox<>();
 		ObservableList<String> items2 = FXCollections.observableArrayList(accountType);
 		cbo2.getItems().addAll(items2);
-		cbo2.setPrefWidth(200);
+		cbo2.setPrefWidth(222);
 		cbo2.setValue("Admin");
 		HBox hBox5 = new HBox(15);
 		hBox5.setPadding(new Insets(20, 10, 10, 10));
@@ -87,12 +83,12 @@ public class BigoneAdmin extends Application {
 		HBox hBox6 = new HBox(15);
 		hBox6.setPadding(new Insets(20, 10, 10, 10));
 		hBox6.getChildren().add(btSubmit);
-		hBox6.setAlignment(Pos.CENTER);
+		hBox6.setAlignment(Pos.BASELINE_LEFT);
 
 		// Now Put it all in a Vbox
 		VBox vBox = new VBox(10);
 		vBox.setPadding(new Insets(5, 5, 5, 5));
-		vBox.getChildren().addAll(hBox, hBox2, hBox3, hBox4, hBox5, hBox6);
+		vBox.getChildren().addAll(hBox5, hBox, hBox2, hBox3, hBox4, hBox6);
 		vBox.setAlignment(Pos.BASELINE_LEFT);
 
 		// To Centre it all
@@ -113,6 +109,7 @@ public class BigoneAdmin extends Application {
 
 		// Job Posting Search//
 		BorderPane paneb = new BorderPane();
+		paneb.setPadding(new Insets(5, 5, 5, 5));
 
 		// TextField
 		TextArea tfa = new TextArea();
@@ -152,9 +149,33 @@ public class BigoneAdmin extends Application {
 		hboxra.setPadding(new Insets(20, 10, 10, 10));
 		paneb.setTop(hboxra);
 
-		// TABLE
-		ScrollPane scrollPaneCommittee = new ScrollPane();
-		scrollPane.setPrefWidth(1100);
+		// Commitee Slection
+		Button btSubmitjob = new Button("Submit");
+		btSubmitjob.setStyle("-fx-border-color: black;");
+		String[] committee = { "Danyal", "Ajith", "Arnav",};
+		ListView<String> lv = new ListView<>(FXCollections.observableArrayList(committee));
+		lv.setPrefSize(400, 400);
+		lv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+			// Event Handler
+		btSubmitjob.setOnAction(e->{
+			lv.getSelectionModel().selectedItemProperty().addListener(
+					ov -> {
+						for (Integer i: lv.getSelectionModel().getSelectedIndices()) {
+							///Add to commitee members to job
+						}
+					});});
+
+
+		ScrollPane scrollPaneCommittee = new ScrollPane(lv);
+		scrollPaneCommittee.setPrefWidth(1000);
+
+		BorderPane scrollpaneandbutton = new BorderPane();
+		scrollpaneandbutton.setPadding(new Insets(20, 10, 10, 10));
+		scrollpaneandbutton.setTop(new Label("Committee Selection, (Hold Shift To Select Multiple Members)"));
+		scrollpaneandbutton.setCenter(scrollPaneCommittee);
+		scrollpaneandbutton.setBottom(btSubmitjob);
+		paneb.setBottom(scrollpaneandbutton);
 
 		// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
