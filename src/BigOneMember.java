@@ -162,19 +162,20 @@ public class BigOneMember extends Application {
 		ScrollPane scrollPane = new ScrollPane(tfa);
 		scrollPane.setPrefWidth(1000);
 
-		TextArea tfab = new TextArea();
-		String descriptionb = "Comments for Applicant Review";
-		tfab.setText(descriptionb);
-		tfab.setEditable(true);
-		tfab.setPrefWidth(1000);
-		ScrollPane scrollPaneb = new ScrollPane(tfab);
-		scrollPaneb.setPrefWidth(1000);
+		TextArea comments = new TextArea();
+		String descriptioncomments = "Comments for Applicant Review";
+		comments.setText(descriptioncomments);
+		comments.setEditable(true);
+		comments.setPrefWidth(1000);
+		ScrollPane scrollPanecomments = new ScrollPane(comments);
+		scrollPanecomments.setPrefWidth(1000);
+		scrollPanecomments.setPadding(new Insets(5, 5, 5, 5));
 
 		BorderPane top = new BorderPane();
 		top.setPadding(new Insets(5, 5, 5, 5));
 		top.setTop(JobName);
 		top.setCenter(tfa);
-		top.setBottom(tfab);
+		top.setBottom(scrollPanecomments);
 
 		String[] progress = { "Pending Review", "Hired", "Denied" };
 		ComboBox<String> cboprogress = new ComboBox<>();
@@ -185,16 +186,16 @@ public class BigOneMember extends Application {
 
 		TextArea tfAllcomments = new TextArea();
 		String descriptionAllcomments = "All Applicant Review Comments";
-		tfab.setText(descriptionAllcomments);
-		tfab.setEditable(false);
-		tfab.setPrefWidth(1000);
+		tfAllcomments.setText(descriptionAllcomments);
+		tfAllcomments.setEditable(false);
+		tfAllcomments.setPrefWidth(1000);
 		ScrollPane scrollPaneAllcomments = new ScrollPane(tfAllcomments);
-		scrollPaneb.setPrefWidth(1000);
+		scrollPaneAllcomments.setPrefWidth(1000);
 
 		BorderPane mid = new BorderPane();
 		mid.setPadding(new Insets(5, 5, 5, 5));
 		mid.setTop(cboprogress);
-		mid.setCenter(scrollPaneb);
+		mid.setCenter(scrollPaneAllcomments);
 
 		BorderPane apinfo = new BorderPane();
 		apinfo.setPrefHeight(1000);
