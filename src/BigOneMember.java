@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -37,52 +38,40 @@ public class BigOneMember extends Application {
 		
 //------------------------------------------------------------------------------------------			
 		// Applicant Review
-		
+
+		// Applicant Review
+
 		BorderPane paneapplicant = new BorderPane();
-		
-		TextField tfApplicantName = new TextField();
-		String tfcApplicantName = "Name";
-		tfApplicantName.setText(tfcApplicantName);
-		tfApplicantName.setEditable(false);
-		tfApplicantName.setPrefWidth(200);
-		tfApplicantName.setAlignment(Pos.CENTER);
-		paneapplicant.setTop(tfApplicantName);
-		
-		TextArea tfa = new TextArea();
-		String description = "Applicant Info";
-		tfa.setText(description);
-		tfa.setEditable(false);
-		tfa.setPrefWidth(300);
-		ScrollPane scrollPane = new ScrollPane(tfa);
-		scrollPane.setPrefWidth(300);
-		paneapplicant.setCenter(scrollPane);
-		
-		
-		String[] progress = { "Pending Review", "Hired", "Denied" };
-		ComboBox<String> cboprogress = new ComboBox<>();
-		ObservableList<String> items3 = FXCollections.observableArrayList(progress);
-		cboprogress.getItems().addAll(items3);
-		cboprogress.setPrefWidth(400);
-		cboprogress.setValue("Pending Review");
-		paneapplicant.setBottom(cboprogress);	
-		
-		BorderPane paneapplicantb = new BorderPane();
-		
-		TextArea tfab = new TextArea();
-		String descriptionb = "Applicant Review Comments";
-		tfab.setText(descriptionb);
-		tfab.setEditable(true);
-		tfab.setPrefWidth(500);
-		ScrollPane scrollPaneb = new ScrollPane(tfab);
-		scrollPaneb.setPrefWidth(500);
-		paneapplicantb.setCenter(scrollPaneb);
-		
-		// Table
-		
+		paneapplicant.setPadding(new Insets(5, 5, 5, 5)); /// CHange
+
+		String[] Applicants = { "Dan", "Ajith", "Arnav" };
+		ComboBox<String> cboapplicants = new ComboBox<>();
+		ObservableList<String> apps = FXCollections.observableArrayList(Applicants);
+		cboapplicants.getItems().addAll(apps);
+		cboapplicants.setPrefWidth(400);
+		cboapplicants.setValue("Select Applicant");
+
+		paneapplicant.setTop(cboapplicants);
+
+		BorderPane paneSpecificApplicant = new BorderPane();
+		paneSpecificApplicant.setPadding(new Insets(5, 5, 5, 5)); /// CHange
+		paneSpecificApplicant.setPrefHeight(1000);
+		paneSpecificApplicant.setPrefWidth(1000);
+
+		cboapplicants.setOnAction(e-> {
+			if (cboapplicants.getValue() == "Dan") {
+
+				paneSpecificApplicant.getChildren().add(setupPane(1000));
+			}
+		} );
+
+		paneapplicant.setCenter(paneSpecificApplicant);
+
+
 		//Submit button
 		Button btSubmit = new Button("Submit");
 		btSubmit.setStyle("-fx-border-color: black;");
-		paneapplicantb.setBottom(btSubmit);
+		paneapplicant.setBottom(btSubmit);
 			
 
 //------------------------------------------------------------------------------------------	
@@ -135,8 +124,7 @@ public class BigOneMember extends Application {
 
 					if (cbo.getValue() == "Review Applicants") {
 						pf.getChildren().clear();
-						pf2.setTop(paneapplicant);
-						pf2.setCenter(paneapplicantb);
+						pf2.setCenter(paneapplicant);
 						pane.setCenter(pf2);
 					}
 
@@ -154,6 +142,68 @@ public class BigOneMember extends Application {
 		
 		
 
+	}
+
+	private Node setupPane(int i) {
+
+		TextField JobName = new TextField(); //Change
+		String tfcApplicantName = "Position";
+		JobName.setText(tfcApplicantName);
+		JobName.setEditable(false);
+		JobName.setPrefWidth(1000);
+		JobName.setAlignment(Pos.CENTER);
+
+		TextArea tfa = new TextArea();
+		String description = "Applicant Info";
+		tfa.setText(description);
+		tfa.setEditable(false);
+		tfa.setPrefWidth(1000);
+		ScrollPane scrollPane = new ScrollPane(tfa);
+		scrollPane.setPrefWidth(1000);
+
+		TextArea tfab = new TextArea();
+		String descriptionb = "Comments for Applicant Review";
+		tfab.setText(descriptionb);
+		tfab.setEditable(true);
+		tfab.setPrefWidth(1000);
+		ScrollPane scrollPaneb = new ScrollPane(tfab);
+		scrollPaneb.setPrefWidth(1000);
+
+		BorderPane top = new BorderPane();
+		top.setPadding(new Insets(5, 5, 5, 5));
+		top.setTop(JobName);
+		top.setCenter(tfa);
+		top.setBottom(tfab);
+
+		String[] progress = { "Pending Review", "Hired", "Denied" };
+		ComboBox<String> cboprogress = new ComboBox<>();
+		ObservableList<String> items3 = FXCollections.observableArrayList(progress);
+		cboprogress.getItems().addAll(items3);
+		cboprogress.setPrefWidth(1000);
+		cboprogress.setValue("Pending Review");
+
+		TextArea tfAllcomments = new TextArea();
+		String descriptionAllcomments = "All Applicant Review Comments";
+		tfab.setText(descriptionAllcomments);
+		tfab.setEditable(false);
+		tfab.setPrefWidth(1000);
+		ScrollPane scrollPaneAllcomments = new ScrollPane(tfAllcomments);
+		scrollPaneb.setPrefWidth(1000);
+
+		BorderPane mid = new BorderPane();
+		mid.setPadding(new Insets(5, 5, 5, 5));
+		mid.setTop(cboprogress);
+		mid.setCenter(scrollPaneb);
+
+		BorderPane apinfo = new BorderPane();
+		apinfo.setPrefHeight(1000);
+		apinfo.setPrefWidth(1000);
+		apinfo.setPadding(new Insets(5, 5, 5, 5));
+		apinfo.setTop(top);
+		apinfo.setCenter(mid);
+
+
+		return apinfo;
 	}
 
 }
