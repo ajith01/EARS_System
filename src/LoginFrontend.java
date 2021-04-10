@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoginFrontend extends Application {
+public class LoginFrontend {
 
     private User currUser;
     // this user will be used in the main Helper backend file
@@ -23,7 +23,7 @@ public class LoginFrontend extends Application {
 //        launch(args);
 //    }
 
-    public void start(Stage primaryStage) {
+    public Scene setUp(Stage primaryStage) {
         Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxBPBAczjUp-JFp4P5eTcmU5_0ECShsY2mw&usqp=CAU");
         ImageView imageview1 = new ImageView(image);
         imageview1.setFitHeight(100);
@@ -70,6 +70,10 @@ public class LoginFrontend extends Application {
         pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
         Scene scene = new Scene(pane, 400, 400);
+
+        return scene;
+
+
         /*primaryStage.setTitle("EARS LOGIN");
         primaryStage.setScene(scene);
         primaryStage.show(); */
