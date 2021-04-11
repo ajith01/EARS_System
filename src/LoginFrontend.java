@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 
 public class LoginFrontend {
 
+    TextField tfUsername = new TextField();
+    TextField tfpassword = new TextField();
+    Button btSubmit = new Button("Submit");
+
     private User currUser;
     // this user will be used in the main Helper backend file
 
@@ -34,7 +38,6 @@ public class LoginFrontend {
         paneimage.setAlignment(Pos.CENTER);
 
         // Username
-        TextField tfUsername = new TextField();
         tfUsername.setPrefWidth(202);
         HBox hBox = new HBox(15);
         hBox.setPadding(new Insets(20, 10, 10, 10));
@@ -42,7 +45,6 @@ public class LoginFrontend {
         hBox.getChildren().add(tfUsername);
 
         // Password
-        TextField tfpassword = new TextField();
         tfpassword.setPrefWidth(202);
         HBox hBox2 = new HBox(15);
         hBox2.setPadding(new Insets(20, 10, 10, 10));
@@ -50,7 +52,6 @@ public class LoginFrontend {
         hBox2.getChildren().add(tfpassword);
 
         // Button
-        Button btSubmit = new Button("Submit");
         btSubmit.setStyle("-fx-border-color: black;");
         HBox hBox3 = new HBox(15);
         hBox3.setPadding(new Insets(20, 10, 10, 10));
@@ -71,12 +72,6 @@ public class LoginFrontend {
         pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
         return pane;
-
-
-        /*primaryStage.setTitle("EARS LOGIN");
-        primaryStage.setScene(scene);
-        primaryStage.show(); */
-
 
         // TODO: implement button handler and user test function
         // Call set User () after login
