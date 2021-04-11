@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoginFrontend {
+public class LoginFrontend extends Pane {
 
     TextField tfUsername = new TextField();
     TextField tfpassword = new TextField();
