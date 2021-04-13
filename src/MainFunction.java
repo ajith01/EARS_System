@@ -203,7 +203,7 @@ public class MainFunction extends Application {
                 String password = input.next();
                 String name = input.next();
                 String email = input.next();
-                String position = input.next();
+                int position = input.nextInt();
 
                 //make into a member class and add it to the array
                 members.add(new Member(name, email, username, password, position));

@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
 import java.security.cert.TrustAnchor;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 public class EarsSystem_ProjectMain extends Application {
 
-    private final int MIN_PASS_LENGHT = 5;
+    private static int MIN_PASS_LENGHT = 5;
     private User currUser;  //need to make this
     private int userType;
     private final int memberType = 2;
@@ -38,7 +39,6 @@ public class EarsSystem_ProjectMain extends Application {
 
     private static void loadData(File file1, File file2,  ArrayList<Member> members , ArrayList<JobApplication> applications) {
         makeMembersAtStartUp(file1, members);
-        //TODO: Need to fix make applicationfromfile
         makeAllApplicationsFromFile(file2, applications, members);
 
 
@@ -70,7 +70,6 @@ public class EarsSystem_ProjectMain extends Application {
         logins.btSubmit.setOnAction(e-> {
             boolean success = false;
             try {
-//              success = loginNewUser(logins.getUser(), logins.getPass() );
                 success = logIn(logins.getUser(), logins.getPass(),usrPwdfile );
             } catch (EARSException exc){
                 logins.setInfoError();
@@ -79,10 +78,16 @@ public class EarsSystem_ProjectMain extends Application {
             if(success){
                 loadData(usrPwdfile, applicationFile,members, applications);
                 //assumes data is already loaded
-                try{setUser(logins.getUser(),members,currUser);} catch (EARSException earsException) {
+                try{setUser(logins.getUser(),members);} catch (EARSException earsException) {
                     earsException.printStackTrace();
 
                 }
+
+                System.out.println(currUser.getPositionType());
+                System.out.println(currUser.getName());
+                System.out.println(currUser.getUsername());
+
+
                 if(userType == memberType) {
                     primaryStage.setTitle("Member");
                     primaryStage.setScene(sceneMember);
@@ -97,10 +102,18 @@ public class EarsSystem_ProjectMain extends Application {
                 }
             }
         });
+        
         //member update account setting
         memberP.btSubmitac.setOnAction(event -> {
             try {
                 updateCurrUser(memberP.getEmail(), memberP.getPass());
+
+
+                makeChangeToUser(currUser.getUsername(),
+                        memberP.getEmail(), 3,usrPwdfile );
+                makeChangeToUser(currUser.getUsername(),
+                        memberP.getPass(), 1,usrPwdfile );
+
                 System.out.println("User " + getUser() + " has updated Info");
                 memberP.setInfoSuccess();
             } catch (EARSException ex){
@@ -110,7 +123,15 @@ public class EarsSystem_ProjectMain extends Application {
         //admin update account settings
         adminP.btSubmitac.setOnAction(event -> {
             try {
-                updateCurrUser(adminP.getEmail(), adminP.getPass());
+
+                System.out.println(adminP.getNewEmail());
+                System.out.println(adminP.getPass());
+
+                makeChangeToUser(currUser.getUsername(),
+                        adminP.getEmail(), 3,usrPwdfile );
+                makeChangeToUser(currUser.getUsername(),
+                        adminP.getPass(), 1,usrPwdfile );
+
                 System.out.println("User " + getUser() + " has updated Info");
                 // TODO: adminP.setInfoSuccess(); like member has
             } catch (EARSException ex){
@@ -121,11 +142,15 @@ public class EarsSystem_ProjectMain extends Application {
         //admin creating a new user
         adminP.btSubmit.setOnAction(event -> {
             try {
-                createNewSystemUser(adminP.getName(),
-                        adminP.getNewEmail(),
-                        adminP.getUsername(),
-                        adminP.getTempPass(),
-                        adminP.getPosition());
+                int posVal;
+                if(adminP.equals("Admin")){
+                    posVal = 1;
+                }else{
+                    posVal = 2;
+                }
+
+                makeNewUser(adminP.getUsername(),adminP.getTempPass(), adminP.getName(),
+                        adminP.getNewEmail(),posVal, usrPwdfile);
                 System.out.println("User " + adminP.getTempPass() + " has been Created");
             } catch (EARSException exc){
                     adminP.setCreateError();
@@ -140,7 +165,9 @@ public class EarsSystem_ProjectMain extends Application {
     private ArrayList<String> getAdminData() {
         ArrayList<String> memberNames = new ArrayList<>();
         for(Member user : members){
-            memberNames.add(currUser.getName());
+            //memberNames.add(currUser.getName());    //? shouldnt this be user.
+            memberNames.add(user.getName());
+
         }
         return memberNames;
     }
@@ -158,14 +185,14 @@ public class EarsSystem_ProjectMain extends Application {
 
 
     // User Helper Functions
-    private void createNewSystemUser(String name, String email, String username, String pass, String pos) throws EARSException{
-        //TODO: creaet new user and save it to file,, Throw error if fields are not valid like passworkd email etc
-        if(pass.equals("")){
-            throw new EARSException("Create User Error");
-        } else {
-            User newUser = new User(name, email, username, pass, pos);
-        }
-    }
+//    private void createNewSystemUser(String name, String email, String username, String pass, String pos) throws EARSException{
+//        //TODO: creaet new user and save it to file,, Throw error if fields are not valid like passworkd email etc
+//        if(pass.equals("")){
+//            throw new EARSException("Create User Error");
+//        } else {
+//            User newUser = new User(name, email, username, pass, pos);
+//        }
+//    }
     private void updateCurrUser(String email, String pass) throws EARSException {
         // TODO: update user
 
@@ -177,24 +204,24 @@ public class EarsSystem_ProjectMain extends Application {
     private String getUser() {
         return currUser.getName();
     }
-    private void setUser(String username, ArrayList<Member> members, User user)
+
+    private void setUser(String username, ArrayList<Member> members)
     throws EARSException{
         //TODO
         for(int i = 0; i < members.size(); i++) {
             if(members.get(i).getUsername().equals(username)){
-                user = members.get(i);
+                currUser = members.get(i);
             }
         }
 
-        if(user == null){
+        if(currUser == null){
             throw new EARSException("User Not found. File corrupted");
         }
 
-        if(user.getPositionType() == 1 || user.getPositionType() == 0){
-            System.out.println(user.getPositionType());
-        setUserType(2);
+        if(currUser.getPositionType() == 1 || currUser.getPositionType() == 0){
+        setUserType(1);
         }else{
-            setUserType(1);
+            setUserType(2);
         }
     }
 
@@ -251,7 +278,7 @@ public class EarsSystem_ProjectMain extends Application {
     }
 
     public static void makeNewUser(String username, String password, String name,
-                                   String email, int postition, File file) throws UserException {
+                                   String email, int postition, File file) throws EARSException {
         /**
          * This function will make changes to the given text fules if a unique username is given, throw an expection if
          * the user name is not unique.
@@ -264,8 +291,12 @@ public class EarsSystem_ProjectMain extends Application {
 
         ) {
             while (input.hasNext()) {
-                if (((input.next()).equals(username))) {
-                    throw new UserException("username already exists");
+                String tempUsername = input.next();
+                if(tempUsername.equals("")){
+                    throw new EARSException("Create User Error");
+                }
+                if ((tempUsername.equals(username))) {
+                    throw new EARSException("username already exists");
                 }
                 input.nextLine();  //throws away the rest of the line
             }
@@ -278,9 +309,9 @@ public class EarsSystem_ProjectMain extends Application {
         }
     }
 
-    public static void makeChangeToUser(String username, String oldPassword,
-                                        String newData, int dataField, File file)
-            throws UserException {
+    public static void makeChangeToUser(String username, String newData,
+                                        int dataField, File file)
+            throws EARSException {
         /**datafeild is either 1 , 2 , 3
          1 changes the password
          2 changes the name
@@ -303,12 +334,13 @@ public class EarsSystem_ProjectMain extends Application {
 
             while (input.hasNext()) {
                 buffer = (input.nextLine()).split(" ");
+
+                if(newData.length() < MIN_PASS_LENGHT){
+                    throw new EARSException("Email not Valid or Password Too Short! (5)");
+                }
+
                 if (buffer[0].equals(username)) {
-                    if (buffer[1].equals(oldPassword)) {
-                        buffer[dataField] = newData;
-                    } else {
-                        throw new UserException("Password does not match");
-                    }
+                    buffer[dataField] = newData;
                 }
 
                 temp.add(buffer[0] + " " + buffer[1] + " "
@@ -410,10 +442,14 @@ public class EarsSystem_ProjectMain extends Application {
                 String password = input.next();
                 String name = input.next();
                 String email = input.next();
-                String position = input.next();
+                int position = input.nextInt();
 
                 //make into a member class and add it to the array
-                members.add( new Member(name,email,username,password,position));
+                Member temp =  new Member(name,email,username,password,position);
+//                if((position == 1) || ( position == 0)){
+//                    temp.setPosition(1);
+//                }
+                members.add(temp);
 
             }
 

@@ -21,11 +21,16 @@ public class Member extends User{
         setPositionName("Member");
     }
 
-    public Member(String name, String email, String username, String password, String positionName){
-        super(name, email, username, password, positionName);
-        setPositionType(2);
+    public Member(String name, String email, String username, String password, int positionType){
+        super(name, email, username, password,positionType);
+        setPositionType(positionType);
         setPositionName("Member");
     }
+
+    public void setPosition(int pos){
+        setPosition(pos);
+    }
+
 
     public void addToCommittee(JobApplication job){
         if(MAX_SIZE <= numberOfCommittees){

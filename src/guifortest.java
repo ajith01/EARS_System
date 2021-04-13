@@ -355,7 +355,7 @@ public class guifortest extends Application {
                 String password = input.next();
                 String name = input.next();
                 String email = input.next();
-                String position = input.next();
+                int position = Integer.parseInt(input.next().trim());
 
                 //make into a member class and add it to the array
                 members.add( new Member(name,email,username,password,position));

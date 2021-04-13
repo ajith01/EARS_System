@@ -1,3 +1,5 @@
-username password name email position
+username password name email 0
 admin admin admin admin 0
-ada 123 ada ada 4
+ada 123 ada ada 2
+ajith password1 ajith ajithk1@gmail.com 2
+ajith1 password ajith1 ajith@mgail.com 2

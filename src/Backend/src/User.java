@@ -21,12 +21,12 @@ public class User {
 
     }
 
-    public User(String name, String email, String username, String password, String positionName){
+    public User(String name, String email, String username, String password, int positionType){
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.positionName = positionName;
+        this.positionType = positionType;
 
     }
 
