@@ -5,27 +5,37 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class BigoneAdmin extends Application {
+public class BigoneAdmin extends Pane {
+	ComboBox<String> cbo = new ComboBox<>();
+	TextField tfname = new TextField();
+	TextField tfEmail = new TextField();
+	TextField tfUsername = new TextField();
+	TextField tfTemporaryPassword = new TextField();
+	ComboBox<String> cbo2 = new ComboBox<>();
+	Button btSubmit = new Button("Submit");
+	TextArea tfa = new TextArea();
+	TextField position = new TextField();
+	ComboBox<String> cbocc = new ComboBox<>();
+	// Start Date and // End Date
+	DatePicker startDate = new DatePicker();
+	DatePicker endDate = new DatePicker(); // https://stackoverflow.com/questions/33281588/creating-a-calendar-using-javafx
+	Button btSubmitjob = new Button("Submit");
+	String[] committee = { "Danyal", "Ajith", "Arnav",};
+	ListView<String> lv = new ListView<>(FXCollections.observableArrayList(committee));
+	TextField tfcemail = new TextField();
+	TextField tfpassword = new TextField();
+	Button btSubmitac = new Button("Submit");
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	public void start(Stage primaryStage) {
+	public Pane setUp() {
 
 		BorderPane pane = new BorderPane();
 
-		// Lmao lets be friends
-
 		// Headings
 		String[] services = { "Select Service", "Manage System Users", "Faculty Search", "Account Setting" };
-		ComboBox<String> cbo = new ComboBox<>();
+
 		ObservableList<String> items = FXCollections.observableArrayList(services);
 		cbo.getItems().addAll(items);
 		cbo.setPrefWidth(400);
@@ -33,7 +43,7 @@ public class BigoneAdmin extends Application {
 		pane.setTop(cbo);
 
 		// Manage System Users//
-		TextField tfname = new TextField();
+
 		tfname.setPrefWidth(215);
 		HBox hBox = new HBox(15);
 		hBox.setPadding(new Insets(20, 10, 10, 10));
@@ -41,7 +51,7 @@ public class BigoneAdmin extends Application {
 		hBox.getChildren().add(tfname);
 		hBox.setAlignment(Pos.BASELINE_LEFT);
 
-		TextField tfEmail = new TextField();
+
 		tfEmail.setPrefWidth(220);
 		HBox hBox2 = new HBox(15);
 		hBox2.setPadding(new Insets(20, 10, 10, 10));
@@ -49,7 +59,7 @@ public class BigoneAdmin extends Application {
 		hBox2.getChildren().add(tfEmail);
 		hBox2.setAlignment(Pos.BASELINE_LEFT);
 
-		TextField tfUsername = new TextField();
+
 		tfUsername.setAlignment(Pos.CENTER);
 		HBox hBox3 = new HBox(15);
 		hBox3.setPadding(new Insets(20, 10, 10, 10));
@@ -57,7 +67,7 @@ public class BigoneAdmin extends Application {
 		hBox3.getChildren().add(tfUsername);
 		hBox3.setAlignment(Pos.BASELINE_LEFT);
 
-		TextField tfTemporaryPassword = new TextField();
+
 		HBox hBox4 = new HBox(15);
 		hBox4.setPadding(new Insets(20, 10, 10, 10));
 		hBox4.getChildren().add(new Label("Password"));
@@ -66,7 +76,7 @@ public class BigoneAdmin extends Application {
 
 		// Account Type
 		String[] accountType = { "Admin", "Chair", "Member" };
-		ComboBox<String> cbo2 = new ComboBox<>();
+
 		ObservableList<String> items2 = FXCollections.observableArrayList(accountType);
 		cbo2.getItems().addAll(items2);
 		cbo2.setPrefWidth(222);
@@ -78,7 +88,7 @@ public class BigoneAdmin extends Application {
 		hBox5.setAlignment(Pos.BASELINE_LEFT);
 
 		// Button
-		Button btSubmit = new Button("Submit");
+
 		btSubmit.setStyle("-fx-border-color: black;");
 		HBox hBox6 = new HBox(15);
 		hBox6.setPadding(new Insets(20, 10, 10, 10));
@@ -96,15 +106,6 @@ public class BigoneAdmin extends Application {
 		panet.getChildren().add(vBox);
 		panet.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
-		/*
-		 * 
-		 * 
-		 * Missing Selecting Commitee Members for committee
-		 * 
-		 * 
-		 * 
-		 */
-
 //--------------------------------------------------------------------------------------------------------------------//
 
 		// Job Posting Search//
@@ -112,7 +113,7 @@ public class BigoneAdmin extends Application {
 		paneb.setPadding(new Insets(5, 5, 5, 5));
 
 		// TextField
-		TextArea tfa = new TextArea();
+
 		String description = "Type Job Description Here";
 		tfa.setText(description);
 		tfa.setEditable(true);
@@ -122,25 +123,22 @@ public class BigoneAdmin extends Application {
 		paneb.setCenter(scrollPane);
 
 		// Three Descriptors at top //
-
 		// Position
-		TextField position = new TextField();
+
 		String positiondisc = "Position Name";
 		position.setText(positiondisc);
 		position.setEditable(true);
 
 		// Select a Committee Chair
 		String[] committeeChair = { "List", "List" }; // NOT REQUIRED IN FINAL PRODUCT
-		ComboBox<String> cbocc = new ComboBox<>();
+
 		ObservableList<String> itemsfromfacultydatabase = FXCollections.observableArrayList(committeeChair); // Array
 																												// replaced
 		cbocc.getItems().addAll(itemsfromfacultydatabase);
 		cbocc.setPrefWidth(200);
 		cbocc.setValue("Select Chair");
 
-		// Start Date and // End Date
-		DatePicker startDate = new DatePicker();
-		DatePicker endDate = new DatePicker(); // https://stackoverflow.com/questions/33281588/creating-a-calendar-using-javafx
+
 
 		// Put it all together
 		HBox hboxra = new HBox();
@@ -150,10 +148,8 @@ public class BigoneAdmin extends Application {
 		paneb.setTop(hboxra);
 
 		// Commitee Slection
-		Button btSubmitjob = new Button("Submit");
+
 		btSubmitjob.setStyle("-fx-border-color: black;");
-		String[] committee = { "Danyal", "Ajith", "Arnav",};
-		ListView<String> lv = new ListView<>(FXCollections.observableArrayList(committee));
 		lv.setPrefSize(400, 400);
 		lv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -181,14 +177,14 @@ public class BigoneAdmin extends Application {
 
 		// Account Setting
 
-		TextField tfcemail = new TextField();
+
 		String tfcemaildescription = "Change Email";
 		tfcemail.setText(tfcemaildescription);
 		tfcemail.setEditable(true);
 		tfcemail.setPrefWidth(200);
 		tfcemail.setAlignment(Pos.CENTER);
 
-		TextField tfpassword = new TextField();
+
 		String tfcpassworddescription = "Change Password";
 		tfpassword.setText(tfcpassworddescription);
 		tfpassword.setEditable(true);
@@ -196,7 +192,7 @@ public class BigoneAdmin extends Application {
 		tfpassword.setAlignment(Pos.CENTER);
 
 		// Button
-		Button btSubmitac = new Button("Submit");
+
 		btSubmitac.setStyle("-fx-border-color: black;");
 
 		VBox vboxac = new VBox(15);
@@ -206,14 +202,6 @@ public class BigoneAdmin extends Application {
 
 		StackPane paneac = new StackPane();
 		paneac.getChildren().add(vboxac);
-		
-		Scene scene = new Scene(pane, 1200, 800);
-		primaryStage.setTitle("Admin EARS Interface");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
-		
-		
 
 //------------------------------------------------------------------------------------		
 
@@ -246,7 +234,7 @@ public class BigoneAdmin extends Application {
 
 //----------------------------------------------------------------------------	
 
-
+		return pane;
 
 	}
 

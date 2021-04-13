@@ -13,38 +13,42 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class BigOneMember extends Application {
+public class BigOneMember extends Pane {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+	ComboBox<String> cbo = new ComboBox<>();
+	ComboBox<String> cboapplicants = new ComboBox<>();
+	Button btSubmit = new Button("Submit");
+	TextField tfcemail = new TextField();
+	TextField tfpassword = new TextField();
+	Button btSubmitac = new Button("Submit");
+	TextField JobName = new TextField();
+	TextArea tfa = new TextArea();
+	TextArea comments = new TextArea();
+	ComboBox<String> cboprogress = new ComboBox<>();
+	TextArea tfAllcomments = new TextArea();
 
-	public void start(Stage primaryStage) {
+	public Pane setUp() {
 
 		BorderPane pane = new BorderPane();
 		String[] services = { "Select Service", "Review Applicants", "Account Setting" };
-		ComboBox<String> cbo = new ComboBox<>();
 		ObservableList<String> items = FXCollections.observableArrayList(services);
 		cbo.getItems().addAll(items);
 		cbo.setPrefWidth(400);
 		cbo.setValue("Select Service");
-		pane.setTop(cbo);	
+		pane.setTop(cbo);
+
 		
 //------------------------------------------------------------------------------------------			
 		// Applicant Review
 		// Applicant Review
 
 		BorderPane paneapplicant = new BorderPane();
-		paneapplicant.setPadding(new Insets(5, 5, 5, 5)); /// CHange
+		paneapplicant.setPadding(new Insets(5, 5, 5, 5));
 
 		String[] Applicants = { "Dan", "Ajith", "Arnav" };
-		ComboBox<String> cboapplicants = new ComboBox<>();
 		ObservableList<String> apps = FXCollections.observableArrayList(Applicants);
 		cboapplicants.getItems().addAll(apps);
 		cboapplicants.setPrefWidth(1000);
@@ -69,7 +73,6 @@ public class BigOneMember extends Application {
 
 
 		//Submit button
-		Button btSubmit = new Button("Submit");
 		btSubmit.setStyle("-fx-border-color: black;");
 		paneapplicant.setBottom(btSubmit);
 		BorderPane.setAlignment(btSubmit, Pos.CENTER);
@@ -78,14 +81,13 @@ public class BigOneMember extends Application {
 //------------------------------------------------------------------------------------------	
 		// Account Setting
 
-		TextField tfcemail = new TextField();
+
 		String tfcemaildescription = "Change Email";
 		tfcemail.setText(tfcemaildescription);
 		tfcemail.setEditable(true);
 		tfcemail.setPrefWidth(200);
 		tfcemail.setAlignment(Pos.CENTER);
 
-		TextField tfpassword = new TextField();
 		String tfcpassworddescription = "Change Password";
 		tfpassword.setText(tfcpassworddescription);
 		tfpassword.setEditable(true);
@@ -93,7 +95,6 @@ public class BigOneMember extends Application {
 		tfpassword.setAlignment(Pos.CENTER);
 
 		// Button
-		Button btSubmitac = new Button("Submit");
 		btSubmitac.setStyle("-fx-border-color: black;");
 
 		VBox vboxac = new VBox(15);
@@ -106,20 +107,9 @@ public class BigOneMember extends Application {
 
 		// ------------------------------------------------------------------------------------------
 
-		// To Centre it all
-
-		Scene scene = new Scene(pane, 800, 600);
-		primaryStage.setTitle("Login");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
-		
-		//------------------------------------------------------------------------------------		
-
 				BorderPane pf2 = new BorderPane();
 				StackPane pf = new StackPane();
 
-				// I need to Figure out how to make it switch
 
 				cbo.setOnAction(e -> {
 
@@ -139,22 +129,21 @@ public class BigOneMember extends Application {
 					
 
 		//----------------------------------------------------------------------------	
-		
-		
+
+		return pane;
 		
 
 	}
 
 	private Node setupPane(int i) {
 
-		TextField JobName = new TextField(); //Change
 		String tfcApplicantName = "Position";
 		JobName.setText(tfcApplicantName);
 		JobName.setEditable(false);
 		JobName.setPrefWidth(1000);
 		JobName.setAlignment(Pos.CENTER);
 
-		TextArea tfa = new TextArea();
+
 		String description = "Applicant Info";
 		tfa.setText(description);
 		tfa.setEditable(false);
@@ -162,7 +151,7 @@ public class BigOneMember extends Application {
 		ScrollPane scrollPane = new ScrollPane(tfa);
 		scrollPane.setPrefWidth(1000);
 
-		TextArea comments = new TextArea();
+
 		String descriptioncomments = "Comments for Applicant Review";
 		comments.setText(descriptioncomments);
 		comments.setEditable(true);
@@ -178,13 +167,12 @@ public class BigOneMember extends Application {
 		top.setBottom(scrollPanecomments);
 
 		String[] progress = { "Pending Review", "Hired", "Denied" };
-		ComboBox<String> cboprogress = new ComboBox<>();
 		ObservableList<String> items3 = FXCollections.observableArrayList(progress);
 		cboprogress.getItems().addAll(items3);
 		cboprogress.setPrefWidth(1000);
 		cboprogress.setValue("Pending Review");
 
-		TextArea tfAllcomments = new TextArea();
+
 		String descriptionAllcomments = "All Applicant Review Comments";
 		tfAllcomments.setText(descriptionAllcomments);
 		tfAllcomments.setEditable(false);
