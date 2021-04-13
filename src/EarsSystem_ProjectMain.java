@@ -330,27 +330,20 @@ public class EarsSystem_ProjectMain extends Application {
             input.useDelimiter(",");
             while (input.hasNext()) {
                 String name = input.next();
-                System.out.println(name);
                 String jobTtle = input.next();
-                System.out.println(jobTtle);
 
                 String description = input.next();
-                System.out.println(description);
 
                 long startDate = Long.parseLong((input.next()).trim());
-                System.out.println(startDate);
 
                 long endDate = Long.parseLong(input.next().trim());
-                System.out.println(endDate);
 
                 int numberOfChair = Integer.parseInt(input.next().trim());
-                System.out.println(numberOfChair);
 
 
 
                 for (int i = 0; i < numberOfChair; i++) {
                     String chairUsername = input.next();
-                    System.out.println(chairUsername);
                     for (int j = 0; j < members.size(); j++) {
                         if (chairUsername.equals(members.get(j).getUsername())) {
                             chairList.add(members.get(j));
@@ -359,13 +352,11 @@ public class EarsSystem_ProjectMain extends Application {
                 }
 
                 int numberOfMembers = Integer.parseInt((input.next().trim()));
-                System.out.println(numberOfMembers);
 
 
                 for (int i = 0; i < numberOfMembers; i++) {
 
                     String commmiteUsername = input.next();
-                    System.out.println(commmiteUsername);
                     for (int j = 0; j < members.size(); j++) {
                         if (commmiteUsername.equals(members.get(j).getUsername())) {
                             commiteeList.add(members.get(j));
@@ -378,7 +369,6 @@ public class EarsSystem_ProjectMain extends Application {
                 applications.add(new JobApplication(name,jobTtle,description, new Date(startDate)
                         , new Date(endDate), chairList, commiteeList));
 
-                System.out.println("To here");
 
             }
 
