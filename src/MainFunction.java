@@ -2,13 +2,8 @@ import Backend.src.JobApplication;
 import Backend.src.Member;
 import javafx.application.Application;
 import javafx.scene.Scene;
-<<<<<<< HEAD
-import javafx.stage.Stage;
 
-=======
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
->>>>>>> 4cb09df323a569193e1a69a37bfb8209fdbbe8cc
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
