@@ -13,21 +13,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-<<<<<<< HEAD
-public class LoginFrontend {
-=======
 public class LoginFrontend extends Pane {
 
     TextField tfUsername = new TextField();
-    TextField tfpassword = new TextField();
+    TextField tfPassword = new TextField();
     Button btSubmit = new Button("Submit");
 
->>>>>>> 4cb09df323a569193e1a69a37bfb8209fdbbe8cc
     private User currUser;
     // this user will be used in the main Helper backend file
 
-    public LoginFrontend(){}
+    public LoginFrontend() {
+    }
 //    public static void main(String[] args) {   //main method
 //        launch(args);
 //    }
@@ -49,11 +45,11 @@ public class LoginFrontend extends Pane {
         hBox.getChildren().add(tfUsername);
 
         // Password
-        tfpassword.setPrefWidth(202);
+        tfPassword.setPrefWidth(202);
         HBox hBox2 = new HBox(15);
         hBox2.setPadding(new Insets(20, 10, 10, 10));
         hBox2.getChildren().add(new Label("Password "));
-        hBox2.getChildren().add(tfpassword);
+        hBox2.getChildren().add(tfPassword);
 
         // Button
         btSubmit.setStyle("-fx-border-color: black;");
@@ -75,18 +71,49 @@ public class LoginFrontend extends Pane {
         pane.getChildren().add(vBox);
         pane.setStyle("-fx-border-color: black; -fx-background-color: silver;");
 
+//        btSubmit.setOnAction(e -> {
+//            int counter = 0;
+//            for (int i = 0; i < 1; i++) {
+//                if (logIn(tfUsername.getText(), tfpassword.getText(), usrPwdfile)) {
+//                    primaryStage.hide();
+//
+//                    System.out.println("Sucess");
+//
+//
+//                    makeMembersAtStartUp(usrPwdfile, members);
+//                    //always make members before applications
+//                    makeAllApplicationsFromFile(applicationFile, applications, members);
+//
+//                } else {
+//                    tfUsername.setText("Incorrect Enrty");
+//                    tfpassword.setText("Incorrect Entry");
+//                    System.exit(0);
+//                }
+
+//            }
+//        });
+
+
         return pane;
 
-        // TODO: implement button handler and user test function
-        // Call set User () after login
+
     }
 
-    public void setUser(String user){
+    public void setUser(String user) {
         // currUser = user;
     }
 
-    public User getUser() {
-        return currUser;
+    public String getUser() {
+        return tfUsername.getText();
     }
+
+    public String getPass() {
+        return tfPassword.getText();
+    }
+
+    public void setInfoError() {
+        tfPassword.setText("Not Found or Incorrect");
+    }
+
 }
 

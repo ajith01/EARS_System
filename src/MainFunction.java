@@ -2,8 +2,9 @@ import Backend.src.JobApplication;
 import Backend.src.Member;
 import javafx.application.Application;
 import javafx.scene.Scene;
-
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,29 +12,15 @@ import java.util.Scanner;
 
 public class MainFunction extends Application {
 
-<<<<<<< HEAD
-    private static Scene loginScene;
-//    private Scene loginScene;
-    private Scene currScene;
-=======
     public LoginFrontend gui = new LoginFrontend();
     public BigoneAdmin gui2 = new BigoneAdmin();
     public BigOneMember gui3 = new BigOneMember();
-
->>>>>>> 4cb09df323a569193e1a69a37bfb8209fdbbe8cc
 
     public static void main(String[] args) {
         java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
         java.io.File applicationFile = new File("src/applicationData.txt");
         ArrayList<JobApplication> applications;
         ArrayList<Member> members;
-        loginScene.
-
-        LoginFrontend loginObj = new LoginFrontend();
-//        loginScene = loginObj.
-//        launch(args);
-
-
 
         launch(args);
     }
@@ -230,35 +217,6 @@ public class MainFunction extends Application {
 
     }
 
-<<<<<<< HEAD
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        //Scene scene = new Scene(pane, 400, 400);
-        primaryStage.setTitle("EARS Login");
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
-
-        btSubmit.setOnAction(e-> {
-            for(int i = 0 ; i <1; i++) {
-
-                if (logIn(tfUsername.getText(), tfpassword.getText(), usrPwdfile)) {
-                    primaryStage.hide();
-
-                    tfUsername.setText("Success");
-                    tfpassword.setText("Success");
-
-                    makeMembersAtStartUp(usrPwdfile, members);
-                    //always make members before applications
-                    makeAllApplicationsFromFile(applicationFile, applications, members);
-
-                } else {
-                    tfUsername.setText("Incorrect Enrty");
-                    tfpassword.setText("Incorrect Entry");
-                    System.exit(0);
-                }
-            }
-=======
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -269,13 +227,12 @@ public class MainFunction extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Scene scene2 = new Scene(gui2.wow(), 1000, 1000);
+        //Scene scene2 = new Scene(gui2.wow(), 1000, 1000);
 
 
         gui.btSubmit.setOnAction(e-> {
             primaryStage.setTitle("LMAO");
-            primaryStage.setScene(scene2);
->>>>>>> 4cb09df323a569193e1a69a37bfb8209fdbbe8cc
+            //primaryStage.setScene(scene2);
         });
 
     }
