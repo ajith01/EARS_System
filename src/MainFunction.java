@@ -1,21 +1,29 @@
 import Backend.src.JobApplication;
 import Backend.src.Member;
-
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class MainFunction {
+public class MainFunction extends Application {
+
+    public LoginFrontend gui = new LoginFrontend();
+    public BigoneAdmin gui2 = new BigoneAdmin();
+    public BigOneMember gui3 = new BigOneMember();
+
+
     public static void main(String[] args) {
         java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
         java.io.File applicationFile = new File("src/applicationData.txt");
         ArrayList<JobApplication> applications;
         ArrayList<Member> members;
 
-
+        launch(args);
     }
-
 
     public static boolean logIn(String username, String password, File file) {
         String user;
@@ -206,6 +214,27 @@ public class MainFunction {
             e.printStackTrace();
         }
 
+
+    }
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        Pane p = new Pane();
+
+        Scene scene = new Scene(gui, 400, 400);
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        Scene scene2 = new Scene(gui2.wow(), 1000, 1000);
+
+
+        gui.btSubmit.setOnAction(e-> {
+            primaryStage.setTitle("LMAO");
+            primaryStage.setScene(scene2);
+        });
 
     }
 }

@@ -28,7 +28,7 @@ public class LoginFrontend extends Pane {
 //        launch(args);
 //    }
 
-    public Pane setUp(Stage primaryStage) {
+    public Pane setUp() {
         Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxBPBAczjUp-JFp4P5eTcmU5_0ECShsY2mw&usqp=CAU");
         ImageView imageview1 = new ImageView(image);
         imageview1.setFitHeight(100);
