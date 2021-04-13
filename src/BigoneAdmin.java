@@ -238,4 +238,36 @@ public class BigoneAdmin extends Pane {
 
 	}
 
+	public String getEmail() {
+		return tfcemail.getText();
+	}
+
+	public String getPass() {
+		return tfpassword.getText();
+	}
+
+	public void setInfoError() {
+		tfcemail.setText("...@example.com");
+		tfpassword.setText("More than 4 characters");
+	}
+
+	public String getName() {
+		return tfname.getText();
+	}
+
+	public String getNewEmail() {
+		return tfname.getText();
+	}
+
+	public String getTempPass() {
+		return tfname.getText();
+	}
+
+	public String getUsername() {
+		return tfname.getText();
+	}
+
+	public String getPosition() {
+		return cbo2.getValue();
+	}
 }

@@ -207,4 +207,10 @@ public class BigOneMember extends Pane {
 		tfcemail.setText("...@example.com");
 		tfpassword.setText("More than 4 characters");
 	}
+
+	public void setInfoSuccess() {
+		//TODO; if we display success mesaage next time the info will not show up
+		//tfpassword.setText("All Changes saved Successfully");
+	}
+
 }
