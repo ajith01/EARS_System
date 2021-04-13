@@ -33,7 +33,7 @@ public class BigOneMember extends Pane {
 	public Pane setUp() {
 
 		BorderPane pane = new BorderPane();
-		String[] services = { "Select Service", "Review Applicants", "Account Setting" };
+		String[] services = { "---Select---", "Review Applicants", "Account Setting" };
 		ObservableList<String> items = FXCollections.observableArrayList(services);
 		cbo.getItems().addAll(items);
 		cbo.setPrefWidth(400);
@@ -131,9 +131,9 @@ public class BigOneMember extends Pane {
 		//----------------------------------------------------------------------------	
 
 		return pane;
-		
 
 	}
+
 
 	private Node setupPane(int i) {
 
@@ -196,4 +196,15 @@ public class BigOneMember extends Pane {
 		return apinfo;
 	}
 
+	public String getEmail() {
+		return tfcemail.getText();
+	}
+	public String getPass() {
+		return tfpassword.getText();
+	}
+
+	public void setInfoError() {
+		tfcemail.setText("...@example.com");
+		tfpassword.setText("More than 4 characters");
+	}
 }

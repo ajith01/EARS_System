@@ -102,7 +102,7 @@ public class guifortest extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        btSubmit.setOnAction(e-> {
+        btSubmit.setOnAction(e -> {
             int counter = 0;
             for(int i = 0 ; i <1; i++) {
 

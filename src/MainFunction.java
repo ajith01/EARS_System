@@ -228,12 +228,12 @@ public class MainFunction extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Scene scene2 = new Scene(gui2.wow(), 1000, 1000);
+        //Scene scene2 = new Scene(gui2.wow(), 1000, 1000);
 
 
         gui.btSubmit.setOnAction(e-> {
             primaryStage.setTitle("LMAO");
-            primaryStage.setScene(scene2);
+            //primaryStage.setScene(scene2);
         });
 
     }
