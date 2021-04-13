@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 
 public class BigoneAdmin extends Pane {
 	ComboBox<String> cbo = new ComboBox<>();
@@ -15,17 +16,23 @@ public class BigoneAdmin extends Pane {
 	TextField tfEmail = new TextField();
 	TextField tfUsername = new TextField();
 	TextField tfTemporaryPassword = new TextField();
+
 	ComboBox<String> cbo2 = new ComboBox<>();
 	Button btSubmit = new Button("Submit");
 	TextArea tfa = new TextArea();
 	TextField position = new TextField();
+
 	ComboBox<String> cbocc = new ComboBox<>();
 	// Start Date and // End Date
 	DatePicker startDate = new DatePicker();
 	DatePicker endDate = new DatePicker(); // https://stackoverflow.com/questions/33281588/creating-a-calendar-using-javafx
+
 	Button btSubmitjob = new Button("Submit");
-	String[] committee = { "Danyal", "Ajith", "Arnav",};
-	ListView<String> lv = new ListView<>(FXCollections.observableArrayList(committee));
+	ArrayList<String> systemMembers = new ArrayList<>();// = { "Danyal", "Ajith", "Arnav",};
+	// TODO: this abc needs to use the above arraylist of all user names . it is giving error for now so i left it as it is
+	String[] abc = { "Danyal", "Ajith", "Arnav",};
+	ListView<String> lv = new ListView<>(FXCollections.observableArrayList(abc));
+
 	TextField tfcemail = new TextField();
 	TextField tfpassword = new TextField();
 	Button btSubmitac = new Button("Submit");
@@ -131,10 +138,12 @@ public class BigoneAdmin extends Pane {
 		position.setEditable(true);
 
 		// Select a Committee Chair
-		String[] committeeChair = { "List", "List" }; // NOT REQUIRED IN FINAL PRODUCT
-
-		ObservableList<String> itemsfromfacultydatabase = FXCollections.observableArrayList(committeeChair); // Array
-																												// replaced
+//		String[] chooseCommitteeChair = { "List", "List" }; // NOT REQUIRED IN FINAL PRODUCT
+		// TODO: test values need to be removed later on
+		systemMembers.add("Arnav");
+		systemMembers.add("Dan");
+		systemMembers.add("Ajith");
+		ObservableList<String> itemsfromfacultydatabase = FXCollections.observableArrayList(systemMembers); // Array
 		cbocc.getItems().addAll(itemsfromfacultydatabase);
 		cbocc.setPrefWidth(200);
 		cbocc.setValue("Select Chair");
@@ -154,7 +163,7 @@ public class BigoneAdmin extends Pane {
 		lv.setPrefSize(400, 400);
 		lv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-			// Event Handler
+		// Event Handler
 		btSubmitjob.setOnAction(e->{
 			lv.getSelectionModel().selectedItemProperty().addListener(
 					ov -> {
@@ -162,7 +171,6 @@ public class BigoneAdmin extends Pane {
 							///Add to commitee members to job
 						}
 					});});
-
 
 
 		ScrollPane scrollPaneCommittee = new ScrollPane(lv);
@@ -205,7 +213,7 @@ public class BigoneAdmin extends Pane {
 		StackPane paneac = new StackPane();
 		paneac.getChildren().add(vboxac);
 
-//------------------------------------------------------------------------------------		
+//------------------------------------------------------------------------------------
 
 		StackPane pf = new StackPane();
 
@@ -232,14 +240,15 @@ public class BigoneAdmin extends Pane {
 			}
 
 		});
-			
 
-//----------------------------------------------------------------------------	
+
+//----------------------------------------------------------------------------
 
 		return pane;
 
 	}
 
+	// Account Setting Helpers
 	public String getEmail() {
 		return tfcemail.getText();
 	}
@@ -253,23 +262,36 @@ public class BigoneAdmin extends Pane {
 		tfpassword.setText("More than 4 characters");
 	}
 
+	// New User Creation Helpers
 	public String getName() {
 		return tfname.getText();
 	}
 
 	public String getNewEmail() {
-		return tfname.getText();
+		return tfEmail.getText();
 	}
 
 	public String getTempPass() {
-		return tfname.getText();
+		return tfTemporaryPassword.getText();
 	}
 
 	public String getUsername() {
-		return tfname.getText();
+		return tfUsername.getText();
 	}
 
 	public String getPosition() {
 		return cbo2.getValue();
+	}
+
+	public void setCreateError() {
+		tfEmail.setText("Something went Wrong");
+		tfTemporaryPassword.setText("ERROR - Try Again!");
+	}
+
+	// Faculty Search Helpers
+
+	// Data and Set Up Helpers
+	public void setMembers(ArrayList<String> memberNames) {
+		systemMembers = memberNames;
 	}
 }

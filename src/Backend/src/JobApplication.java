@@ -88,5 +88,19 @@ public class JobApplication {
         return null;  //if nothing found return null
     }
 
+    public boolean hasMember(String usrName){
+//        ArrayList<String> allmembers = new ArrayList<>();
+//
+        for(Member user : committeeMembers){
+            if(user.getUsername().equals(usrName))
+                return true;
+        }
+        for(Member user : chair){
+            if(user.getUsername().equals(usrName))
+                return true;
+        }
+        return false;
+    }
+
 
 }
