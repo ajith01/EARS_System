@@ -36,8 +36,10 @@ public class EarsSystem_ProjectMain extends Application {
 
     }
 
-    private static void loadData(File file, ArrayList<Member> memebers , ArrayList<Application> applications) {
-        makeMembersAtStartUp(file, memebers);
+    private static void loadData(File file1, File file2,  ArrayList<Member> members , ArrayList<JobApplication> applications) {
+        makeMembersAtStartUp(file1, members);
+        //TODO: Need to fix make applicationfromfile
+        makeAllApplicationsFromFile(file2, applications, members);
 
 
     }
@@ -75,9 +77,12 @@ public class EarsSystem_ProjectMain extends Application {
                 exc.printStackTrace();
             }
             if(success){
+                loadData(usrPwdfile, applicationFile,members, applications);
                 //assumes data is already loaded
-                setUser(logins.getUser());
+                try{setUser(logins.getUser(),members,currUser);} catch (EARSException earsException) {
+                    earsException.printStackTrace();
 
+                }
                 if(userType == memberType) {
                     primaryStage.setTitle("Member");
                     primaryStage.setScene(sceneMember);
@@ -172,11 +177,29 @@ public class EarsSystem_ProjectMain extends Application {
     private String getUser() {
         return currUser.getName();
     }
-    private void setUser(String username) {
+    private void setUser(String username, ArrayList<Member> members, User user)
+    throws EARSException{
         //TODO
-        setUserType(1);
+        for(int i = 0; i < members.size(); i++) {
+            if(members.get(i).getUsername().equals(username)){
+                user = members.get(i);
+            }
+        }
+
+        if(user == null){
+            throw new EARSException("User Not found. File corrupted");
+        }
+
+        if(user.getPositionType() == 1 || user.getPositionType() == 0){
+            System.out.println(user.getPositionType());
+        setUserType(2);
+        }else{
+            setUserType(1);
+        }
     }
-    private void setUserType(int t) {
+
+
+    public void setUserType(int t) {
         userType = t;
     }
 
@@ -224,7 +247,6 @@ public class EarsSystem_ProjectMain extends Application {
         } catch (FileNotFoundException e) {  //if there is an exception
             e.printStackTrace();
         }
-
         return false;                        //if none found
     }
 
@@ -322,15 +344,27 @@ public class EarsSystem_ProjectMain extends Application {
             input.useDelimiter(",");
             while (input.hasNext()) {
                 String name = input.next();
+                System.out.println(name);
                 String jobTtle = input.next();
+                System.out.println(jobTtle);
+
                 String description = input.next();
-                long startDate = input.nextLong();
-                long endDate = input.nextLong();
-                int numberOfChair = input.nextInt();
+                System.out.println(description);
+
+                long startDate = Long.parseLong((input.next()).trim());
+                System.out.println(startDate);
+
+                long endDate = Long.parseLong(input.next().trim());
+                System.out.println(endDate);
+
+                int numberOfChair = Integer.parseInt(input.next().trim());
+                System.out.println(numberOfChair);
+
 
 
                 for (int i = 0; i < numberOfChair; i++) {
                     String chairUsername = input.next();
+                    System.out.println(chairUsername);
                     for (int j = 0; j < members.size(); j++) {
                         if (chairUsername.equals(members.get(j).getUsername())) {
                             chairList.add(members.get(j));
@@ -338,11 +372,14 @@ public class EarsSystem_ProjectMain extends Application {
                     }
                 }
 
-                int numberOfMembers = input.nextInt();
+                int numberOfMembers = Integer.parseInt((input.next().trim()));
+                System.out.println(numberOfMembers);
 
-                for (int i = 0; i < numberOfChair; i++) {
+
+                for (int i = 0; i < numberOfMembers; i++) {
 
                     String commmiteUsername = input.next();
+                    System.out.println(commmiteUsername);
                     for (int j = 0; j < members.size(); j++) {
                         if (commmiteUsername.equals(members.get(j).getUsername())) {
                             commiteeList.add(members.get(j));
@@ -350,8 +387,13 @@ public class EarsSystem_ProjectMain extends Application {
                     }
                 }
 
+
+
                 applications.add(new JobApplication(name,jobTtle,description, new Date(startDate)
                         , new Date(endDate), chairList, commiteeList));
+
+                System.out.println("To here");
+
             }
 
         } catch (FileNotFoundException e) {
