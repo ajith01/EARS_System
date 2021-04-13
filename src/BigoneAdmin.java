@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+
 public class BigoneAdmin extends Pane {
 	ComboBox<String> cbo = new ComboBox<>();
 	TextField tfname = new TextField();
@@ -161,6 +162,7 @@ public class BigoneAdmin extends Pane {
 							///Add to commitee members to job
 						}
 					});});
+
 
 
 		ScrollPane scrollPaneCommittee = new ScrollPane(lv);

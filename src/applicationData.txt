@@ -1,2 +1,1 @@
-candidate name, job title,description,start data,end Date,numberofchairs,chair name 1,chair name 2,chair name 3,...,chair name n, committiee member 1,
-committee member 2,...,commitee member m,
+candidate name, job title , description of job ,13221312,123433543513,5, chair name 1 , chair name 2 , chair name 4 , ... , chair name n ,4, committiee member 1 ,committee member 2 , ... , commitee member m ,
