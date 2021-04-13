@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class BigOneMember extends Pane {
 
 	ComboBox<String> cbo = new ComboBox<>();
@@ -29,6 +31,7 @@ public class BigOneMember extends Pane {
 	TextArea comments = new TextArea();
 	ComboBox<String> cboprogress = new ComboBox<>();
 	TextArea tfAllcomments = new TextArea();
+	private ArrayList<String> appNames = new ArrayList<>();
 
 	public Pane setUp() {
 
@@ -48,8 +51,8 @@ public class BigOneMember extends Pane {
 		BorderPane paneapplicant = new BorderPane();
 		paneapplicant.setPadding(new Insets(5, 5, 5, 5));
 
-		String[] Applicants = { "Dan", "Ajith", "Arnav" };
-		ObservableList<String> apps = FXCollections.observableArrayList(Applicants);
+//		String[] Applicants = { "Dan", "Ajith", "Arnav" };
+		ObservableList<String> apps = FXCollections.observableArrayList(appNames);
 		cboapplicants.getItems().addAll(apps);
 		cboapplicants.setPrefWidth(1000);
 		cboapplicants.setValue("Select Applicant");
@@ -213,4 +216,7 @@ public class BigOneMember extends Pane {
 		//tfpassword.setText("All Changes saved Successfully");
 	}
 
+	public void setApplications(ArrayList<String> appNames) {
+		this.appNames = appNames;
+	}
 }

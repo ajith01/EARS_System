@@ -52,9 +52,6 @@ public class EarsSystem_ProjectMain extends Application {
 
 
 
-        //seting up user
-
-
 
         // Login
         Scene sceneLogin = new Scene(logins.setUp(), 400, 400);
@@ -73,13 +70,6 @@ public class EarsSystem_ProjectMain extends Application {
             try {
 //              success = loginNewUser(logins.getUser(), logins.getPass() );
                 success = logIn(logins.getUser(), logins.getPass(),usrPwdfile );
-
-
-
-                //need to set up user
-//                System.out.println("User " + getUser() + " has Logged In");
-
-                //need a method to set user
             } catch (EARSException exc){
                 logins.setInfoError();
                 exc.printStackTrace();
@@ -91,16 +81,17 @@ public class EarsSystem_ProjectMain extends Application {
                 if(userType == memberType) {
                     primaryStage.setTitle("Member");
                     primaryStage.setScene(sceneMember);
+                    memberP.setApplications(getMemberData());
+                    // this will return the applicant (names only) to the front end
                 } else if(userType == adminType){
                     primaryStage.setTitle("Admin");
                     primaryStage.setScene(sceneAdmin);
+                    adminP.setMembers(getAdminData());
                 } else {
                     //TODO:error
                 }
             }
         });
-
-
         //member update account setting
         memberP.btSubmitac.setOnAction(event -> {
             try {
@@ -111,7 +102,6 @@ public class EarsSystem_ProjectMain extends Application {
                 memberP.setInfoError();
             }
         });
-
         //admin update account settings
         adminP.btSubmitac.setOnAction(event -> {
             try {
@@ -120,10 +110,9 @@ public class EarsSystem_ProjectMain extends Application {
                 // TODO: adminP.setInfoSuccess(); like member has
             } catch (EARSException ex){
                 adminP.setInfoError();
+
             }
         });
-
-
         //admin creating a new user
         adminP.btSubmit.setOnAction(event -> {
             try {
@@ -132,20 +121,45 @@ public class EarsSystem_ProjectMain extends Application {
                         adminP.getUsername(),
                         adminP.getTempPass(),
                         adminP.getPosition());
-                System.out.println("User " + adminP.getName() + " has been Created");
+                System.out.println("User " + adminP.getTempPass() + " has been Created");
             } catch (EARSException exc){
-
+                    adminP.setCreateError();
             }
         });
+
+
     }
 
 
+    // Admin Related Helper Functions
+    private ArrayList<String> getAdminData() {
+        ArrayList<String> memberNames = new ArrayList<>();
+        for(Member user : members){
+            memberNames.add(currUser.getName());
+        }
+        return memberNames;
+    }
+
+    // Member Related Helper Functions
+    private ArrayList<String> getMemberData() {
+        ArrayList<String> appNames = new ArrayList<>();
+        for(JobApplication app : applications){
+            if(app.hasMember(currUser.getUsername())){
+                appNames.add(currUser.getName());
+            }
+        }
+        return appNames;
+    }
 
 
     // User Helper Functions
     private void createNewSystemUser(String name, String email, String username, String pass, String pos) throws EARSException{
         //TODO: creaet new user and save it to file,, Throw error if fields are not valid like passworkd email etc
-        User newUser = new User(name, email, username, pass, pos);
+        if(pass.equals("")){
+            throw new EARSException("Create User Error");
+        } else {
+            User newUser = new User(name, email, username, pass, pos);
+        }
     }
     private void updateCurrUser(String email, String pass) throws EARSException {
         // TODO: update user
@@ -160,7 +174,7 @@ public class EarsSystem_ProjectMain extends Application {
     }
     private void setUser(String username) {
         //TODO
-        setUserType(2);
+        setUserType(1);
     }
     private void setUserType(int t) {
         userType = t;
