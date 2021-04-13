@@ -52,7 +52,7 @@ public class EarsSystem_ProjectMain extends Application {
             boolean success = false;
             try {
                 success = loginNewUser(logins.getUser(), logins.getPass());
-                System.out.println("User " + logins.getUser() + " has Logged In");
+                System.out.println("User " + getUser() + " has Logged In");
             } catch (EARSException exc){
                 logins.setInfoError();
                 exc.printStackTrace();
@@ -72,9 +72,31 @@ public class EarsSystem_ProjectMain extends Application {
         memberP.btSubmitac.setOnAction(event -> {
             try {
                 updateCurrUser(memberP.getEmail(), memberP.getPass());
-                System.out.println("User " + logins.getUser() + " has updated Info");
+                System.out.println("User " + getUser() + " has updated Info");
+                memberP.setInfoSuccess();
             } catch (EARSException ex){
                 memberP.setInfoError();
+            }
+        });
+        adminP.btSubmitac.setOnAction(event -> {
+            try {
+                updateCurrUser(adminP.getEmail(), adminP.getPass());
+                System.out.println("User " + getUser() + " has updated Info");
+                // TODO: adminP.setInfoSuccess(); like member has
+            } catch (EARSException ex){
+                adminP.setInfoError();
+            }
+        });
+        adminP.btSubmit.setOnAction(event -> {
+            try {
+                createNewSystemUser(adminP.getName(),
+                        adminP.getNewEmail(),
+                        adminP.getUsername(),
+                        adminP.getTempPass(),
+                        adminP.getPosition());
+                System.out.println("User " + adminP.getName() + " has been Created");
+            } catch (EARSException exc){
+
             }
         });
     }
@@ -83,6 +105,10 @@ public class EarsSystem_ProjectMain extends Application {
 
 
     // User Helper Functions
+    private void createNewSystemUser(String name, String email, String username, String pass, String pos) throws EARSException{
+        //TODO: creaet new user and save it to file,, Throw error if fields are not valid like passworkd email etc
+        User newUser = new User(name, email, username, pass, pos);
+    }
     private void updateCurrUser(String email, String pass) throws EARSException {
         // TODO: update user
 
@@ -91,7 +117,9 @@ public class EarsSystem_ProjectMain extends Application {
             throw new EARSException("Email not Valid or Password Too Short! (5)");
         }
     }
-
+    private String getUser() {
+        return currUser.getName();
+    }
     private void setUser() {
         //TODO
         setUserType(1);
