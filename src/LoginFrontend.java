@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginFrontend {
-
     private User currUser;
     // this user will be used in the main Helper backend file
 

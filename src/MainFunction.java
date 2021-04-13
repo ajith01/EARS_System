@@ -1,17 +1,32 @@
 import Backend.src.JobApplication;
 import Backend.src.Member;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class MainFunction {
+public class MainFunction extends Application {
+
+    private static Scene loginScene;
+//    private Scene loginScene;
+    private Scene currScene;
+
     public static void main(String[] args) {
         java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
         java.io.File applicationFile = new File("src/applicationData.txt");
         ArrayList<JobApplication> applications;
         ArrayList<Member> members;
+        loginScene.
+
+        LoginFrontend loginObj = new LoginFrontend();
+//        loginScene = loginObj.
+//        launch(args);
+
+
 
 
     }
@@ -206,6 +221,36 @@ public class MainFunction {
             e.printStackTrace();
         }
 
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        //Scene scene = new Scene(pane, 400, 400);
+        primaryStage.setTitle("EARS Login");
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+
+        btSubmit.setOnAction(e-> {
+            for(int i = 0 ; i <1; i++) {
+
+                if (logIn(tfUsername.getText(), tfpassword.getText(), usrPwdfile)) {
+                    primaryStage.hide();
+
+                    tfUsername.setText("Success");
+                    tfpassword.setText("Success");
+
+                    makeMembersAtStartUp(usrPwdfile, members);
+                    //always make members before applications
+                    makeAllApplicationsFromFile(applicationFile, applications, members);
+
+                } else {
+                    tfUsername.setText("Incorrect Enrty");
+                    tfpassword.setText("Incorrect Entry");
+                    System.exit(0);
+                }
+            }
+        });
 
     }
 }

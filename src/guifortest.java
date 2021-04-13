@@ -103,7 +103,6 @@ public class guifortest extends Application {
         primaryStage.show();
 
         btSubmit.setOnAction(e-> {
-            int counter = 0;
             for(int i = 0 ; i <1; i++) {
 
                 if (logIn(tfUsername.getText(), tfpassword.getText(), usrPwdfile)) {
