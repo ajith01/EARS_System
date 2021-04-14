@@ -117,7 +117,7 @@ public class JobApplication {
         return false;
     }
 
-    public boolean hasChar(String usrName){
+    public boolean hasChair(String usrName){
 
         for(Member user : chair){
             if(user.getUsername().equals(usrName))
