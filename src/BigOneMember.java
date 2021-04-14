@@ -156,7 +156,7 @@ public class BigOneMember extends Pane {
 		scrollPane.isDisabled();
 
 
-		String descriptioncomments = "Comments for Applicant Review";
+		String descriptioncomments = "Enter Your Comments for Applicant Review";
 		comments.setText(descriptioncomments);
 		comments.setEditable(true);
 		comments.setPrefWidth(1000);
@@ -248,5 +248,15 @@ public class BigOneMember extends Pane {
 
 	public void setJobTitle(String job) {
 		JobName.setText(job);
+	}
+	public String getJobTitle(){
+		return JobName.getText();
+	}
+
+	public String getNewCommet() {
+		return comments.getText();
+	}
+	public String getCurrAppName(){
+		return cboapplicants.getValue();
 	}
 }

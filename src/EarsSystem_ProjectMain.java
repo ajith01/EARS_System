@@ -166,18 +166,22 @@ public class EarsSystem_ProjectMain extends Application {
 
         // setting visibility of options in Application Pane
         memberP.cboapplicants.setOnAction(event -> {
-            String applicantName = memberP.cboapplicants.getValue();
+            String applicantName = memberP.getCurrAppName();
             boolean isChair = hasChairCurrUser(applicantName);
             memberP.setChair(isChair);
             if(isChair){
                 memberP.setAllComments(getAllComments(applicantName));
             }
-
             memberP.setAppDesc(getAppDesc(applicantName));
             memberP.setJobTitle(getAppTitle(applicantName));
             memberP.showCurrApplication();
         });
-
+        // member submits comment - handled chair or member types
+        memberP.btSubmit.setOnAction(event -> {
+            String newComment = memberP.getNewCommet();
+            String applicantName = memberP.getCurrAppName();
+            addComments(memberP.getJobTitle(), applicantName, currUser.getUsername(), newComment, commentListing);
+        });
     }
 
 
@@ -287,15 +291,6 @@ public class EarsSystem_ProjectMain extends Application {
         return "Default Description";
     }
 
-    // User Helper Functions
-//    private void createNewSystemUser(String name, String email, String username, String pass, String pos) throws EARSException{
-//        //TODO: creaet new user and save it to file,, Throw error if fields are not valid like passworkd email etc
-//        if(pass.equals("")){
-//            throw new EARSException("Create User Error");
-//        } else {
-//            User newUser = new User(name, email, username, pass, pos);
-//        }
-//    }
     private void updateCurrUser(String email, String pass) throws EARSException {
         // TODO: update user
 
@@ -307,6 +302,7 @@ public class EarsSystem_ProjectMain extends Application {
     private String getUser() {
         return currUser.getName();
     }
+
     // ------- Login Helper Functions -------------------------------
 
     private void setUser(String username, ArrayList<Member> members) throws EARSException{
@@ -332,7 +328,6 @@ public class EarsSystem_ProjectMain extends Application {
     public void setUserType(int t) {
         userType = t;
     }
-
 
     public boolean logIn(String username, String password, File file) throws EARSException{
         String user;
@@ -369,6 +364,8 @@ public class EarsSystem_ProjectMain extends Application {
         return false;                        //if none found
     }
 
+
+    // -----Backend Functions----------
     public void makeNewUser(String username, String password, String name,
                                    String email, int postition, File file) throws EARSException {
         /**
