@@ -21,6 +21,7 @@ public class EarsSystem_ProjectMain extends Application {
     //set up all the files and data
     java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
     java.io.File applicationFile = new File("src/applicationData.txt");
+    java.io.File adminApplication = new File("src/adminMadeApplicationData.txt");
 
     ArrayList<JobApplication> applications = new ArrayList<>();
     ArrayList<Member> members = new ArrayList<>();
@@ -120,9 +121,6 @@ public class EarsSystem_ProjectMain extends Application {
         adminP.btSubmitac.setOnAction(event -> {
             try {
 
-                System.out.println(adminP.getNewEmail());
-                System.out.println(adminP.getPass());
-
                 makeChangeToUser(currUser.getUsername(),
                         adminP.getEmail(), 3,usrPwdfile );
                 makeChangeToUser(currUser.getUsername(),
@@ -157,20 +155,35 @@ public class EarsSystem_ProjectMain extends Application {
         // admin making new job posting, faculty search
         adminP.btSubmitjob.setOnAction(event -> {
             try {
-                createNewApplication(adminP.getCandName(), adminP.getNewJobPosition(), adminP.getStartDate(), adminP.getEndDate(),
-                        adminP.getJobDes(), adminP.getNewChair(), adminP.getCommMembers());
-            } catch (EARSException exc){
+                createNewApplication(adminP.getNewJobPosition(), adminP.getStartDate(), adminP.getEndDate(),
+                        adminP.getJobDes(), adminP.getNewChair(), adminP.getCommMembers(),adminApplication);
+            } catch (EARSException | IOException exc ){
                 exc.printStackTrace();
             }
         });
     }
 
-    private void createNewApplication(String candName, String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems) throws EARSException{
+    private void createNewApplication(String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems, File file) throws EARSException, IOException {
 
-        if(candName.equals("--Enter Name--") || candName.equals("") || jobDes.equals("") || chair.equals("") || posName.equals(""))
-            throw new EARSException("Some field was Empty, Try Again");
+//        if(candName.equals("--Enter Name--") || candName.equals("") || jobDes.equals("") ||  posName.equals(""))  //chair.equals("") ||
+//            throw new EARSException("Some field was Empty, Try Again");
 
         // TODO:
+
+        try(
+                java.io.FileWriter output = new FileWriter(file, true);
+
+        ){
+            String str  = "";
+            for (int i = 0; i < commMems.size(); i++){
+                str += commMems.get(i) + ",";
+                System.out.println(str);
+            }
+
+            output.write( posName + "," + start.toString() +"," + end.toString() + ","
+            + jobDes +"," +chair + "," + commMems.size() + "," + str + "\r\n" );
+
+        }
         ArrayList<String> newlist = new ArrayList<>();
         newlist.add(chair);
         JobApplication newApp;// = new JobApplication(candName, posName, jobDes, start, end, newlist, commMems);
