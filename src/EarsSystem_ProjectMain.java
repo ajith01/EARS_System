@@ -22,6 +22,7 @@ public class EarsSystem_ProjectMain extends Application {
     java.io.File usrPwdfile = new File("src/usernameAndPwd.txt");
     java.io.File applicationFile = new File("src/applicationData.txt");
     java.io.File adminApplication = new File("src/adminMadeApplicationData.txt");
+    java.io.File commentListing = new File("src/commentLists.txt");
 
     ArrayList<JobApplication> applications = new ArrayList<>();
     ArrayList<Member> members = new ArrayList<>();
@@ -39,6 +40,7 @@ public class EarsSystem_ProjectMain extends Application {
     private void loadData(File file1, File file2,  ArrayList<Member> members , ArrayList<JobApplication> applications) {
         makeMembersAtStartUp(file1, members);
         makeAllApplicationsFromFile(file2, applications, members);
+        readCommentsAndAddtoApplication(applications, commentListing);
     }
 
     @Override
@@ -464,7 +466,6 @@ public class EarsSystem_ProjectMain extends Application {
                 applications.add(new JobApplication(name,jobTtle,description, new Date(startDate)
                         , new Date(endDate), chairList, commiteeList));
 
-
             }
 
         } catch (FileNotFoundException e) {
@@ -533,10 +534,6 @@ public class EarsSystem_ProjectMain extends Application {
                 output.write(temp.get(i));
             }
 
-
-
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -544,36 +541,28 @@ public class EarsSystem_ProjectMain extends Application {
         }
     }
 
-    public void readCommentsAndAddtoApplication(JobApplication application,File file){
-        try(
+    public void readCommentsAndAddtoApplication(ArrayList<JobApplication> applicationList,File file) {
+        try (
                 java.util.Scanner input = new Scanner(file);
-        ){
+        ) {
             input.useDelimiter(",");
             String[] buffer;
-            buffer = (input.nextLine()).split(",");
 
-            if(buffer[0].equals(application.getJobTitle()) && buffer[1].equals(application.getCandidateName())){
-                for(int i = 2; i < buffer.length; i+= 2){
-                    application.addComment(new Comment(buffer[i], buffer[i+1]));
 
+            while (input.hasNext()) {
+                buffer = (input.nextLine()).split(",");
+                for (int j = 0; j < applicationList.size(); j++) {
+                    if (buffer[0].equals(applicationList.get(j).getJobTitle()) && buffer[1].equals(applicationList.get(j).getCandidateName())) {
+                        for (int i = 2; i < buffer.length; i += 2) {
+                            applicationList.get(j).addComment(new Comment(buffer[i], buffer[i + 1]));
+                        }
+                    }
                 }
-
             }
 
-            ArrayList<Comment> comments = new ArrayList<Comment>();
-
-            while(input.hasNext()){
-                
-
-
-            }
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         }
     }
-
 
 }
