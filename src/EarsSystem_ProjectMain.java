@@ -168,11 +168,12 @@ public class EarsSystem_ProjectMain extends Application {
         memberP.cboapplicants.setOnAction(event -> {
             String name = memberP.cboapplicants.getValue();
             for(JobApplication application: applications)
-                if(name.equals(application.getCandidateName())){
-                    if(application.hasChair(currUser.getUsername())){
-                       memberP.setChair(true);
-                   }
-            }
+                if(name.equals(application.getCandidateName())) {
+                    if (application.hasChair(currUser.getUsername())) {
+                        memberP.setChair(true);
+                    }
+                }
+//            memberP.setChair(true);
             memberP.showCurrApplication();
         });
 
@@ -282,16 +283,6 @@ public class EarsSystem_ProjectMain extends Application {
     public void setUserType(int t) {
         userType = t;
     }
-
-
-//    private boolean loginNewUser(String u, String p) throws EARSException {
-//        //TODO: handle code
-//        if(u.equals("")){
-//            throw new EARSException("USER NOT FOUND!");
-//        }
-//        setUser();
-//        return true;
-//    }
 
 
     public boolean logIn(String username, String password, File file) throws EARSException{

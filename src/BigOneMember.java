@@ -236,4 +236,8 @@ public class BigOneMember extends Pane {
 	public void showCurrApplication(){
 		paneSpecificApplicant.setCenter(setupPane(1000));
 	}
+
+	public void setAllComments(){
+
+	}
 }
