@@ -34,7 +34,6 @@ public class EarsSystem_ProjectMain extends Application {
         System.out.println("System Launched");
 //        loadData();
         System.out.println("Data Loaded");
-
     }
 
     private void loadData(File file1, File file2,  ArrayList<Member> members , ArrayList<JobApplication> applications) {
@@ -168,6 +167,9 @@ public class EarsSystem_ProjectMain extends Application {
         memberP.cboapplicants.setOnAction(event -> {
             String applicantName = memberP.getCurrAppName();
             boolean isChair = hasChairCurrUser(applicantName);
+
+
+            System.out.println(isChair + " " + applicantName + "");
             memberP.setChair(isChair);
             if(isChair){
                 memberP.setAllComments(getAllComments(applicantName));
@@ -229,12 +231,13 @@ public class EarsSystem_ProjectMain extends Application {
     private ArrayList<String> getMemberData() {
         ArrayList<String> appNames = new ArrayList<>();
         for(JobApplication app : applications){
-            System.out.println(app.getDescription());
-            System.out.println(currUser.getUsername() + app.hasChair(currUser.getUsername()));
+            for(int i = 0; i < app.getChair().size(); i++) {
+                System.out.println(app.getChair().get(i).getName());
+            }
             if(app.hasMember(currUser.getUsername())){
-                appNames.add(currUser.getName());  //debugg this daata
+                appNames.add(app.getCandidateName());  //debugg this daata
             }else if(app.hasChair(currUser.getUsername())){
-                appNames.add(currUser.getName());  //debugg this daata
+                appNames.add(app.getCandidateName());  //debugg this daata
             }
         }
         return appNames;
@@ -243,6 +246,7 @@ public class EarsSystem_ProjectMain extends Application {
     private boolean hasChairCurrUser(String name){
         // checks if application with candidate=name has curruser as chair type
         for(JobApplication application: applications){
+            System.out.println(application.getCandidateName());
             if (name.equals(application.getCandidateName())) {
                 if (application.hasChair(currUser.getUsername())) {
                     return true;
@@ -261,6 +265,8 @@ public class EarsSystem_ProjectMain extends Application {
                     c++;
                     result.append(c);
                     result.append("  ");
+                    result.append(comment.getCommitteeMember());
+                    result.append(" -- ");
                     result.append(comment.getRemark());
                     result.append("\n");
                     System.out.println("reached");
@@ -545,16 +551,23 @@ public class EarsSystem_ProjectMain extends Application {
             input.useDelimiter(",");
             String[] buffer;
 
+            boolean val = false;
             while (input.hasNext()) {
                 buffer = (input.nextLine()).split(",");
 
+
                 if (buffer[0].equals(jobTitle) && buffer[1].equals(candidateName)) {
-                    buffer[2] += comment + "," + username +"," + buffer[2];
+                    buffer[2] =  comment + "," + username +"," + buffer[2];
+                    val = true;
 
                 }
 
-                temp.add(buffer[0] + " " + buffer[1] + " "
-                        + buffer[2] + " " + buffer[3] + " " + buffer[4] + "\n");
+                String str = "";
+                for(int i = 0; i < buffer.length; i++){
+                    str += buffer[i] + ",";
+                }
+
+                temp.add(str + "\n" );
 
             }
             PrintWriter pw = new PrintWriter(file);
@@ -563,6 +576,10 @@ public class EarsSystem_ProjectMain extends Application {
 
             for (int i = 0; i < temp.size(); i++) {
                 output.write(temp.get(i));
+            }
+
+            if(!val){
+                output.write( jobTitle +"," + candidateName + "," + comment + "," + username + "\n");
             }
 
         } catch (FileNotFoundException e) {

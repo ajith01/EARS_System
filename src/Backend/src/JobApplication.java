@@ -16,7 +16,7 @@ public class JobApplication {
     private ArrayList<Member> committeeMembers;
     private ArrayList<Member> chair;   //want to be a string
 
-    private ArrayList<Comment> comments;
+    private ArrayList<Comment> comments = new ArrayList<>();
 
 
     public JobApplication(String name, String jobTitle, String description, Date startingDate,
@@ -36,6 +36,10 @@ public class JobApplication {
 
     public String getCandidateName() {
         return candidateName;
+    }
+
+    public ArrayList<Member> getChair() {
+        return chair;
     }
 
     public String getPosition() {
