@@ -53,7 +53,7 @@ public class BigOneMember extends Pane {
 
 		// FIXME: same issue as admin file. using the hlper to add appnames doesnt seem to work
 		// only these 3 names are gonna show up
-		String[] appNames = { "Dan", "Ajith", "Arnav" };
+		//String[] appNames = { "Dan", "Ajith", "Arnav" };
 		ObservableList<String> apps = FXCollections.observableArrayList(appNames);
 		cboapplicants.getItems().addAll(apps);
 		cboapplicants.setPrefWidth(1000);
@@ -221,4 +221,6 @@ public class BigOneMember extends Pane {
 	public void setApplications(ArrayList<String> appNames) {
 		this.appNames = appNames;
 	}
+
+
 }
