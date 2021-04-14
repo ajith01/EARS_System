@@ -172,6 +172,7 @@ public class BigOneMember extends Pane {
 
 		String[] progress = { "Pending Review", "Hired", "Denied" };
 		ObservableList<String> items3 = FXCollections.observableArrayList(progress);
+		cboprogress.getItems().removeAll();
 		cboprogress.getItems().addAll(items3);
 		cboprogress.setPrefWidth(1000);
 		cboprogress.setValue("Pending Review");
