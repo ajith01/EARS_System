@@ -1,6 +1,7 @@
 username password name email 0
-admin admin admin admin 0
+admin password1111 admin danyal@gm.com 0
 ada 123 ada ada 2
 ajith password1 ajith ajithk1@gmail.com 2
 ajith1 password ajith1 ajith@mgail.com 2
 test1 test1 testing testing@mail.com 2
+dan password Danyal danyal@gmail.com 2

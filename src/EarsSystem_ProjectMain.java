@@ -222,9 +222,6 @@ public class EarsSystem_ProjectMain extends Application {
         }
         //TODO: remove this dummy data later
         // FIXME: this data will not come in the drop down since
-        memberNames.add("ArnavChair");
-        memberNames.add("DanChair");
-        memberNames.add("AjithChair");
         return memberNames;
     }
 
@@ -232,14 +229,18 @@ public class EarsSystem_ProjectMain extends Application {
     private ArrayList<String> getMemberData() {
         ArrayList<String> appNames = new ArrayList<>();
         for(JobApplication app : applications){
+            System.out.println(app.getDescription());
+            System.out.println(currUser.getUsername() + app.hasChair(currUser.getUsername()));
             if(app.hasMember(currUser.getUsername())){
-                appNames.add(currUser.getName());
+                appNames.add(currUser.getName());  //debugg this daata
+            }else if(app.hasChair(currUser.getUsername())){
+                appNames.add(currUser.getName());  //debugg this daata
             }
         }
         //TODO: remove this dummy data later
-        appNames.add("Arnav-App");
-        appNames.add("Dan-App");
-        appNames.add("Ajith-App");
+//        appNames.add("Arnav-App");
+//        appNames.add("Dan-App");
+//        appNames.add("Ajith-App");
         return appNames;
     }
 
@@ -337,12 +338,12 @@ public class EarsSystem_ProjectMain extends Application {
                 Scanner input = new Scanner(file);
         ) {
             while (input.hasNext()) {
-                user = input.next();  //gets the next user name;
+                user = input.next().trim();  //gets the next user name;
 
                 //we can have some username based exceptions here
 
                 if (user.equals(username)) {
-                    pwd = input.next();   //gets the password
+                    pwd = input.next().trim();   //gets the password
 
                     //we can have some password based exceptions here
 
@@ -463,10 +464,10 @@ public class EarsSystem_ProjectMain extends Application {
         ) {
             input.useDelimiter(",");
             while (input.hasNext()) {
-                String name = input.next();
-                String jobTtle = input.next();
+                String name = input.next().trim();
+                String jobTtle = input.next().trim();
 
-                String description = input.next();
+                String description = input.next().trim();
 
                 long startDate = Long.parseLong((input.next()).trim());
 
@@ -477,7 +478,7 @@ public class EarsSystem_ProjectMain extends Application {
 
 
                 for (int i = 0; i < numberOfChair; i++) {
-                    String chairUsername = input.next();
+                    String chairUsername = input.next().trim();
                     for (int j = 0; j < members.size(); j++) {
                         if (chairUsername.equals(members.get(j).getUsername())) {
                             chairList.add(members.get(j));
@@ -490,7 +491,7 @@ public class EarsSystem_ProjectMain extends Application {
 
                 for (int i = 0; i < numberOfMembers; i++) {
 
-                    String commmiteUsername = input.next();
+                    String commmiteUsername = input.next().trim();
                     for (int j = 0; j < members.size(); j++) {
                         if (commmiteUsername.equals(members.get(j).getUsername())) {
                             commiteeList.add(members.get(j));
