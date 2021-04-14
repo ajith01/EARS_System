@@ -539,8 +539,25 @@ public class EarsSystem_ProjectMain extends Application {
                 java.util.Scanner input = new Scanner(file);
         ){
             input.useDelimiter(",");
+            String[] buffer;
+            buffer = (input.nextLine()).split(",");
+
+            if(buffer[0].equals(application.getJobTitle()) && buffer[1].equals(application.getCandidateName())){
+                for(int i = 2; i < buffer.length; i+= 2){
+                    application.addComment(new Comment(buffer[i], buffer[i+1]));
+
+                }
+
+            }
 
             ArrayList<Comment> comments = new ArrayList<Comment>();
+
+            while(input.hasNext()){
+                
+
+
+            }
+
 
 
         } catch (IOException e) {

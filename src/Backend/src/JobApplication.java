@@ -30,6 +30,13 @@ public class JobApplication {
         this.committeeMembers = committeeMembers;
     }
 
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public String getCandidateName() {
+        return candidateName;
+    }
 
     public String getPosition() {
         return position;
@@ -43,8 +50,15 @@ public class JobApplication {
         return comments;
     }
 
-    public void addRemark(String s, Member u){
-        if(!committeeMembers.contains(u) ) {
+    public void addRemark(String s, String u){
+
+        boolean memberExist = false;
+        for(int i = 0; i < committeeMembers.size();i++){
+            if(committeeMembers.get(i).getName().equals(u)){
+                memberExist = true;
+            }
+        }
+        if(!memberExist) {
             throw new ApplicationException("User not part of committee");
         }
         comments.add(new Comment(s, u));
@@ -100,12 +114,16 @@ public class JobApplication {
             if(user.getUsername().equals(usrName))
                 return true;
         }
+        return false;
+    }
+
+    public boolean hasChar(String usrName){
+
         for(Member user : chair){
             if(user.getUsername().equals(usrName))
                 return true;
         }
         return false;
     }
-
 
 }

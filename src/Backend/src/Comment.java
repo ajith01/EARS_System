@@ -1,14 +1,14 @@
 package Backend.src;
 public class Comment{
     private String comments;
-    private Member committeeMember;
+    private String committeeMember;
 
-    Comment(String remark, Member committeeMember) {
+    public Comment(String remark, String committeeMember) {
         this.comments = remark;
         this.committeeMember = committeeMember;
     }
 
-    public Member getCommitteeMember() {
+    public String getCommitteeMember() {
         return committeeMember;
     }
 
