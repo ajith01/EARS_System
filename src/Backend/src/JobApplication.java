@@ -14,9 +14,9 @@ public class JobApplication {
     private int status;
 
     private ArrayList<Member> committeeMembers;
-    private ArrayList<Member> chair;
+    private ArrayList<Member> chair;   //want to be a string
 
-    private ArrayList<Comment> remarks;
+    private ArrayList<Comment> comments;
 
 
     public JobApplication(String name, String jobTitle, String description, Date startingDate,
@@ -40,14 +40,14 @@ public class JobApplication {
     }
 
     public ArrayList getRemarks() {
-        return remarks;
+        return comments;
     }
 
     public void addRemark(String s, Member u){
         if(!committeeMembers.contains(u) ) {
             throw new ApplicationException("User not part of committee");
         }
-        remarks.add(new Comment(s, u));
+        comments.add(new Comment(s, u));
     }
 //    public void setRemarks(Remark[] remarks) {
 //        this.remarks = remarks;
@@ -77,11 +77,16 @@ public class JobApplication {
         chair.add(member);
     }
 
+    public void addComment(Comment comment){
+        comments.add(comment);
+
+    }
+
     public Comment seeAUsersComment(Member member){
-        int remarksSize = remarks.size();
+        int remarksSize = comments.size();
         for(int i = 0; i < remarksSize;  i++){
-            if(((remarks.get(i)).getCommitteeMember()).equals(member)){
-                return remarks.get(i);
+            if(((comments.get(i)).getCommitteeMember()).equals(member)){
+                return comments.get(i);
 
             }
         }

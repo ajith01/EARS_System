@@ -534,5 +534,19 @@ public class EarsSystem_ProjectMain extends Application {
         }
     }
 
+    public void readCommentsAndAddtoApplication(JobApplication application,File file){
+        try(
+                java.util.Scanner input = new Scanner(file);
+        ){
+            input.useDelimiter(",");
+
+            ArrayList<Comment> comments = new ArrayList<Comment>();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
