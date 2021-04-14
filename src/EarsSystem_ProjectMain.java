@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 public class EarsSystem_ProjectMain extends Application {
 
+
+
     private static int MIN_PASS_LENGHT = 5;
     private User currUser;  //need to make this
     private int userType;
@@ -161,6 +163,8 @@ public class EarsSystem_ProjectMain extends Application {
                 exc.printStackTrace();
             }
         });
+
+
     }
 
     private void createNewApplication(String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems, File file) throws EARSException, IOException {

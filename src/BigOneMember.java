@@ -53,11 +53,12 @@ public class BigOneMember extends Pane {
 
 		// FIXME: same issue as admin file. using the hlper to add appnames doesnt seem to work
 		// only these 3 names are gonna show up
-		String[] appNames = { "Dan", "Ajith", "Arnav" };
+//		String[] appNames = { "Dan", "Ajith", "Arnav" };
+		appNames.add("Sam");
 		ObservableList<String> apps = FXCollections.observableArrayList(appNames);
 		cboapplicants.getItems().addAll(apps);
 		cboapplicants.setPrefWidth(1000);
-		cboapplicants.setValue("Select Applicant");
+		cboapplicants.setValue("---Select Applicant---");
 
 		paneapplicant.setTop(cboapplicants);
 
@@ -176,7 +177,9 @@ public class BigOneMember extends Pane {
 		cboprogress.getItems().addAll(items3);
 		cboprogress.setPrefWidth(1000);
 		cboprogress.setValue("Pending Review");
-
+//		cboprogress.setOnAction(event -> {
+//			items3.add("new");
+//		});
 
 		String descriptionAllcomments = "All Applicant Review Comments";
 		tfAllcomments.setText(descriptionAllcomments);
@@ -219,6 +222,6 @@ public class BigOneMember extends Pane {
 	}
 
 	public void setApplications(ArrayList<String> appNames) {
-		this.appNames = appNames;
+		this.appNames.addAll(appNames);
 	}
 }
