@@ -509,7 +509,7 @@ public class EarsSystem_ProjectMain extends Application {
                 buffer = (input.nextLine()).split(",");
 
                 if (buffer[0].equals(jobTitle) && buffer[1].equals(candidateName)) {
-                    buffer[2] += username+ "," + comment +"," + buffer[2];
+                    buffer[2] += comment + "," + username +"," + buffer[2];
 
                 }
 
