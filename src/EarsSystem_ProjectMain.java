@@ -164,7 +164,6 @@ public class EarsSystem_ProjectMain extends Application {
             }
         });
 
-
     }
 
     private void createNewApplication(String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems, File file) throws EARSException, IOException {
@@ -204,9 +203,9 @@ public class EarsSystem_ProjectMain extends Application {
         }
         //TODO: remove this dummy data later
         // FIXME: this data will not come in the drop down since
-        memberNames.add("Arnav");
-        memberNames.add("Dan");
-        memberNames.add("Ajith");
+        memberNames.add("ArnavChair");
+        memberNames.add("DanChair");
+        memberNames.add("AjithChair");
         return memberNames;
     }
 

@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,7 +22,7 @@ public class BigoneAdmin extends Pane {
 	//cbo2 - for selecting type of new account in manage system users option
 
 	// these are for making new job application faculty search
-	TextField candName = new TextField("--Enter Name--");
+//	TextField candName = new TextField("--Enter Name--");
 	TextArea tfa = new TextArea();
 	TextField position = new TextField();
 	ComboBox<String> cbocc = new ComboBox<>();
@@ -35,9 +34,9 @@ public class BigoneAdmin extends Pane {
 	ArrayList<String> systemMembers = new ArrayList<>();// = { "Danyal", "Ajith", "Arnav",};
 	// for returning
 	ArrayList<String> selectedMembers = new ArrayList<>();
-	ObservableList<String> selected;
+//	ObservableList<String> selected;
 	// TODO: this abc needs to use the above arraylist of all user names . it is giving error for now so i left it as it is
-	String[] abc = { "Danyal", "Ajith", "Arnav",};
+	String[] abc = {};//{ "Danyal", "Ajith", "Arnav",};
 	ListView<String> lv = new ListView<>(FXCollections.observableArrayList(abc));
 
 	// these are for self account settings
@@ -50,12 +49,12 @@ public class BigoneAdmin extends Pane {
 		BorderPane pane = new BorderPane();
 
 		// Headings
-		String[] services = { "Select Service", "Manage System Users", "Faculty Search", "Account Setting" };
+		String[] services = { "Manage System Users", "Faculty Search", "Account Setting" };
 
 		ObservableList<String> items = FXCollections.observableArrayList(services);
 		cbo.getItems().addAll(items);
 		cbo.setPrefWidth(400);
-		cbo.setValue("Select Service");
+		cbo.setValue("---Select Service---");
 		pane.setTop(cbo);
 
 		// Manage System Users//
@@ -145,7 +144,6 @@ public class BigoneAdmin extends Pane {
 		position.setText(positiondisc);
 		position.setEditable(true);
 
-		candName.setEditable(true);
 
 		// Select a Committee Chair
 //		String[] chooseCommitteeChair = { "List", "List" }; // NOT REQUIRED IN FINAL PRODUCT
@@ -172,18 +170,18 @@ public class BigoneAdmin extends Pane {
 		lv.setPrefSize(400, 400);
 		lv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-		// Event Handler
-		btSubmitjob.setOnAction(e->{
-//			lv.getSelectionModel().selectedItemProperty().addListener(
-//					ov -> {
-//						for (Integer i: lv.getSelectionModel().getSelectedIndices()) {
-//							///TODO: Add to commitee members to job should make a way to access this from helper
-//
-//						}
-//					});
-					setSelectedMembers(lv.getSelectionModel().selectedItemProperty());
-					}
-					);
+//		// Event Handler
+//		btSubmitjob.setOnAction(e->{
+////			lv.getSelectionModel().selectedItemProperty().addListener(
+////					ov -> {
+////						for (Integer i: lv.getSelectionModel().getSelectedIndices()) {
+////							///TODO: Add to commitee members to job should make a way to access this from helper
+////
+////						}
+////					});
+//					setSelectedMembers(lv.getSelectionModel().selectedItemProperty());
+//					}
+//					);
 
 
 		ScrollPane scrollPaneCommittee = new ScrollPane(lv);
@@ -261,9 +259,9 @@ public class BigoneAdmin extends Pane {
 
 	}
 
-	private void setSelectedMembers(ReadOnlyObjectProperty<String> mems) {
-		selectedMembers.addAll(selected);
-	}
+//	private void setSelectedMembers(ReadOnlyObjectProperty<String> mems) {
+//		selectedMembers.addAll(selected);
+//	}
 
 	// Account Setting Helpers
 	public String getEmail() {
@@ -309,9 +307,9 @@ public class BigoneAdmin extends Pane {
 	public String getJobDes(){
 		return tfa.getText();
 	}
-	public String getCandName() {
-		return candName.getText();
-	}
+//	public String getCandName() {
+//		return candName.getText();
+//	}
 	public String getNewJobPosition(){
 		return  position.getText();
 	}
@@ -329,15 +327,15 @@ public class BigoneAdmin extends Pane {
 		return new Date(endDate.getValue().toEpochDay());
 	}
 
-	// TODO: make this work
 	public ArrayList<String> getCommMembers() {
+		selectedMembers.addAll(lv.getSelectionModel().getSelectedItems());
 		return selectedMembers;
 	}
 
 	// Data and Set Up Helpers
 	public void setMembers(ArrayList<String> memberNames) {
-		systemMembers.clear();
-		systemMembers.addAll(memberNames);
+		cbocc.getItems().addAll(memberNames);
+		lv.getItems().addAll(memberNames);
 	}
 
 
