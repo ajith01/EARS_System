@@ -166,17 +166,20 @@ public class EarsSystem_ProjectMain extends Application {
 
         // setting visibility of options in Application Pane
         memberP.cboapplicants.setOnAction(event -> {
-            String name = memberP.cboapplicants.getValue();
-            for(JobApplication application: applications)
-                if(name.equals(application.getCandidateName())){
-                    if(application.hasChair(currUser.getUsername())){
-                       memberP.setChair(true);
-                   }
+            String applicantName = memberP.cboapplicants.getValue();
+            boolean isChair = hasChairCurrUser(applicantName);
+            memberP.setChair(isChair);
+            if(isChair){
+                memberP.setAllComments(getAllComments(applicantName));
             }
+
+            memberP.setAppDesc(getAppDesc(applicantName));
+            memberP.setJobTitle(getAppTitle(applicantName));
             memberP.showCurrApplication();
         });
 
     }
+
 
     private void createNewApplication(String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems, File file) throws EARSException, IOException {
 
@@ -236,6 +239,53 @@ public class EarsSystem_ProjectMain extends Application {
         return appNames;
     }
 
+    private boolean hasChairCurrUser(String name){
+        // checks if application with candidate=name has curruser as chair type
+        for(JobApplication application: applications){
+            if (name.equals(application.getCandidateName())) {
+                if (application.hasChair(currUser.getUsername())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private String getAllComments(String name){
+        StringBuilder result = new StringBuilder();
+        int c = 0;
+        for(JobApplication application: applications){
+            if (name.equals(application.getCandidateName())) {
+                for(Comment comment: application.getComments()){
+                    c++;
+                    result.append(c);
+                    result.append("  ");
+                    result.append(comment.getRemark());
+                    result.append("\n");
+                    System.out.println("reached");
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    private String getAppTitle(String name) {
+        for (JobApplication application : applications) {
+            if (name.equals(application.getCandidateName())) {
+                return application.getJobTitle();
+            }
+        }
+        return "Default Title";
+    }
+
+    private String getAppDesc(String name) {
+        for (JobApplication application : applications) {
+            if (name.equals(application.getCandidateName())) {
+                return application.getDescription();
+            }
+        }
+        return "Default Description";
+    }
 
     // User Helper Functions
 //    private void createNewSystemUser(String name, String email, String username, String pass, String pos) throws EARSException{
@@ -282,16 +332,6 @@ public class EarsSystem_ProjectMain extends Application {
     public void setUserType(int t) {
         userType = t;
     }
-
-
-//    private boolean loginNewUser(String u, String p) throws EARSException {
-//        //TODO: handle code
-//        if(u.equals("")){
-//            throw new EARSException("USER NOT FOUND!");
-//        }
-//        setUser();
-//        return true;
-//    }
 
 
     public boolean logIn(String username, String password, File file) throws EARSException{

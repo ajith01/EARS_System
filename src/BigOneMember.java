@@ -141,18 +141,19 @@ public class BigOneMember extends Pane {
 	private Node setupPane(int i) {
 
 		String tfcApplicantName = "Position";
-		JobName.setText(tfcApplicantName);
+		//JobName.setText(tfcApplicantName);
 		JobName.setEditable(false);
 		JobName.setPrefWidth(1000);
 		JobName.setAlignment(Pos.CENTER);
 
 
-		String description = "Applicant Info";
-		tfa.setText(description);
+		String description = "Application Description";
+		//tfa.setText(description);
 		tfa.setEditable(false);
 		tfa.setPrefWidth(1000);
 		ScrollPane scrollPane = new ScrollPane(tfa);
 		scrollPane.setPrefWidth(1000);
+		scrollPane.isDisabled();
 
 
 		String descriptioncomments = "Comments for Applicant Review";
@@ -177,7 +178,7 @@ public class BigOneMember extends Pane {
 		cboprogress.setValue("Pending Review");
 
 		String descriptionAllcomments = "All Applicant Review Comments";
-		tfAllcomments.setText(descriptionAllcomments);
+		//tfAllcomments.setText(descriptionAllcomments);
 		tfAllcomments.setEditable(false);
 		tfAllcomments.setPrefWidth(1000);
 
@@ -235,5 +236,17 @@ public class BigOneMember extends Pane {
 
 	public void showCurrApplication(){
 		paneSpecificApplicant.setCenter(setupPane(1000));
+	}
+
+	public void setAllComments(String s){
+		tfAllcomments.setText(s);
+	}
+
+	public void setAppDesc(String desc) {
+		tfa.setText(desc);
+	}
+
+	public void setJobTitle(String job) {
+		JobName.setText(job);
 	}
 }
