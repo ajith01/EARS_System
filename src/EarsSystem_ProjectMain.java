@@ -237,10 +237,6 @@ public class EarsSystem_ProjectMain extends Application {
                 appNames.add(currUser.getName());  //debugg this daata
             }
         }
-        //TODO: remove this dummy data later
-//        appNames.add("Arnav-App");
-//        appNames.add("Dan-App");
-//        appNames.add("Ajith-App");
         return appNames;
     }
 
@@ -410,7 +406,6 @@ public class EarsSystem_ProjectMain extends Application {
          This can be made into 3 seperate functions if you dont like this design
          */
 
-
         //assumes that username is unique
         ArrayList<String> temp = new ArrayList<>();
 
@@ -444,8 +439,6 @@ public class EarsSystem_ProjectMain extends Application {
                 output.write(temp.get(i));
             }
 
-
-            //            clear.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
