@@ -1,10 +1,8 @@
 import Backend.src.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+//import org.*;//omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
 import java.security.cert.TrustAnchor;
@@ -37,22 +35,18 @@ public class EarsSystem_ProjectMain extends Application {
 
     }
 
-    private static void loadData(File file1, File file2,  ArrayList<Member> members , ArrayList<JobApplication> applications) {
+    private void loadData(File file1, File file2,  ArrayList<Member> members , ArrayList<JobApplication> applications) {
         makeMembersAtStartUp(file1, members);
         makeAllApplicationsFromFile(file2, applications, members);
-
-
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         // Set up all the panes
         LoginFrontend logins = new LoginFrontend();
         BigoneAdmin adminP = new BigoneAdmin();
         BigOneMember memberP = new BigOneMember();
-
-
 
 
         // Login
@@ -67,6 +61,7 @@ public class EarsSystem_ProjectMain extends Application {
         primaryStage.setScene(sceneLogin);
         primaryStage.show();
 
+        // login submit handler for all users
         logins.btSubmit.setOnAction(e-> {
             boolean success = false;
             try {
@@ -102,8 +97,8 @@ public class EarsSystem_ProjectMain extends Application {
                 }
             }
         });
-        
-        //member update account setting
+
+        // member update account setting
         memberP.btSubmitac.setOnAction(event -> {
             try {
                 updateCurrUser(memberP.getEmail(), memberP.getPass());
@@ -120,7 +115,8 @@ public class EarsSystem_ProjectMain extends Application {
                 memberP.setInfoError();
             }
         });
-        //admin update account settings
+
+        // admin update account settings
         adminP.btSubmitac.setOnAction(event -> {
             try {
 
@@ -139,11 +135,12 @@ public class EarsSystem_ProjectMain extends Application {
 
             }
         });
-        //admin creating a new user
+
+        // admin creating a new user
         adminP.btSubmit.setOnAction(event -> {
             try {
                 int posVal;
-                if(adminP.equals("Admin")){
+                if(adminP.getPosition().equals("Admin")){
                     posVal = 1;
                 }else{
                     posVal = 2;
@@ -151,12 +148,34 @@ public class EarsSystem_ProjectMain extends Application {
 
                 makeNewUser(adminP.getUsername(),adminP.getTempPass(), adminP.getName(),
                         adminP.getNewEmail(),posVal, usrPwdfile);
-                System.out.println("User " + adminP.getTempPass() + " has been Created");
+                System.out.println("User " + adminP.getUsername() + " has been Created");
             } catch (EARSException exc){
                     adminP.setCreateError();
             }
         });
 
+        // admin making new job posting, faculty search
+        adminP.btSubmitjob.setOnAction(event -> {
+            try {
+                createNewApplication(adminP.getCandName(), adminP.getNewJobPosition(), adminP.getStartDate(), adminP.getEndDate(),
+                        adminP.getJobDes(), adminP.getNewChair(), adminP.getCommMembers());
+            } catch (EARSException exc){
+                exc.printStackTrace();
+            }
+        });
+    }
+
+    private void createNewApplication(String candName, String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems) throws EARSException{
+
+        if(candName.equals("--Enter Name--") || candName.equals("") || jobDes.equals("") || chair.equals("") || posName.equals(""))
+            throw new EARSException("Some field was Empty, Try Again");
+
+        // TODO:
+        ArrayList<String> newlist = new ArrayList<>();
+        newlist.add(chair);
+        JobApplication newApp;// = new JobApplication(candName, posName, jobDes, start, end, newlist, commMems);
+
+        // TODO:  manage with backend data after creating this
 
     }
 
@@ -165,10 +184,13 @@ public class EarsSystem_ProjectMain extends Application {
     private ArrayList<String> getAdminData() {
         ArrayList<String> memberNames = new ArrayList<>();
         for(Member user : members){
-            //memberNames.add(currUser.getName());    //? shouldnt this be user.
             memberNames.add(user.getName());
-
         }
+        //TODO: remove this dummy data later
+        // FIXME: this data will not come in the drop down since
+        memberNames.add("Arnav");
+        memberNames.add("Dan");
+        memberNames.add("Ajith");
         return memberNames;
     }
 
@@ -180,6 +202,10 @@ public class EarsSystem_ProjectMain extends Application {
                 appNames.add(currUser.getName());
             }
         }
+        //TODO: remove this dummy data later
+        appNames.add("Arnav-App");
+        appNames.add("Dan-App");
+        appNames.add("Ajith-App");
         return appNames;
     }
 
@@ -204,9 +230,9 @@ public class EarsSystem_ProjectMain extends Application {
     private String getUser() {
         return currUser.getName();
     }
+    // ------- Login Helper Functions -------------------------------
 
-    private void setUser(String username, ArrayList<Member> members)
-    throws EARSException{
+    private void setUser(String username, ArrayList<Member> members) throws EARSException{
         //TODO
         for(int i = 0; i < members.size(); i++) {
             if(members.get(i).getUsername().equals(username)){
@@ -218,6 +244,7 @@ public class EarsSystem_ProjectMain extends Application {
             throw new EARSException("User Not found. File corrupted");
         }
 
+        // TODO: this is the place where posotion types got switched
         if(currUser.getPositionType() == 1 || currUser.getPositionType() == 0){
         setUserType(1);
         }else{
@@ -225,12 +252,11 @@ public class EarsSystem_ProjectMain extends Application {
         }
     }
 
-
     public void setUserType(int t) {
         userType = t;
     }
 
-    // ------- Login Helper Functions -------------------------------
+
 //    private boolean loginNewUser(String u, String p) throws EARSException {
 //        //TODO: handle code
 //        if(u.equals("")){
@@ -241,8 +267,7 @@ public class EarsSystem_ProjectMain extends Application {
 //    }
 
 
-    public static boolean logIn(String username, String password, File file)
-    throws EARSException{
+    public boolean logIn(String username, String password, File file) throws EARSException{
         String user;
         String pwd;
 
@@ -277,12 +302,11 @@ public class EarsSystem_ProjectMain extends Application {
         return false;                        //if none found
     }
 
-    public static void makeNewUser(String username, String password, String name,
+    public void makeNewUser(String username, String password, String name,
                                    String email, int postition, File file) throws EARSException {
         /**
-         * This function will make changes to the given text fules if a unique username is given, throw an expection if
+         * This function will make changes to the given text fields if a unique username is given, throw an expection if
          * the user name is not unique.
-
          */
 
         try (
@@ -309,7 +333,7 @@ public class EarsSystem_ProjectMain extends Application {
         }
     }
 
-    public static void makeChangeToUser(String username, String newData,
+    public void makeChangeToUser(String username, String newData,
                                         int dataField, File file)
             throws EARSException {
         /**datafeild is either 1 , 2 , 3
@@ -362,7 +386,7 @@ public class EarsSystem_ProjectMain extends Application {
         }
     }
 
-    public static void makeAllApplicationsFromFile(File file, ArrayList<JobApplication> applications,
+    public void makeAllApplicationsFromFile(File file, ArrayList<JobApplication> applications,
                                                    ArrayList<Member> members) {
 
 
@@ -424,13 +448,12 @@ public class EarsSystem_ProjectMain extends Application {
 
     }
 
-    public static void makeMembersAtStartUp(File file, ArrayList<Member> members){
+    public void makeMembersAtStartUp(File file, ArrayList<Member> members){
         /**
          * This function will make member class from the information given in the password file
          * and and it will make changes to the given main array to have the classes
          * assumes that there are no members in the array
          */
-
 
         try (
                 //create a scanner class
@@ -446,17 +469,11 @@ public class EarsSystem_ProjectMain extends Application {
 
                 //make into a member class and add it to the array
                 Member temp =  new Member(name,email,username,password,position);
-//                if((position == 1) || ( position == 0)){
-//                    temp.setPosition(1);
-//                }
                 members.add(temp);
-
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
 
     }
 
