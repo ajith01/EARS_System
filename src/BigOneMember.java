@@ -32,6 +32,7 @@ public class BigOneMember extends Pane {
 	ComboBox<String> cboprogress = new ComboBox<>();
 	TextArea tfAllcomments = new TextArea();
 	private ArrayList<String> appNames = new ArrayList<>();
+	private boolean isChair = false;
 
 	public Pane setUp() {
 
@@ -68,6 +69,7 @@ public class BigOneMember extends Pane {
 
 		cboapplicants.setOnAction(e-> {
 			//if (cboapplicants.getValue() == "Dan") {
+
 				paneSpecificApplicant.setCenter(setupPane(1000));
 			//}
 		} );
@@ -177,11 +179,15 @@ public class BigOneMember extends Pane {
 		cboprogress.setPrefWidth(1000);
 		cboprogress.setValue("Pending Review");
 
-
 		String descriptionAllcomments = "All Applicant Review Comments";
 		tfAllcomments.setText(descriptionAllcomments);
 		tfAllcomments.setEditable(false);
 		tfAllcomments.setPrefWidth(1000);
+
+		if (!isChair){
+			cboprogress.hide();
+			tfAllcomments.setVisible(false);
+		}
 		ScrollPane scrollPaneAllcomments = new ScrollPane(tfAllcomments);
 		scrollPaneAllcomments.setPrefWidth(1000);
 
@@ -220,5 +226,9 @@ public class BigOneMember extends Pane {
 
 	public void setApplications(ArrayList<String> appNames) {
 		cboapplicants.getItems().addAll(appNames);
+	}
+
+	public void setChair(boolean val){
+		isChair = val;
 	}
 }

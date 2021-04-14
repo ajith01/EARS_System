@@ -12,8 +12,6 @@ import java.util.Scanner;
 
 public class EarsSystem_ProjectMain extends Application {
 
-
-
     private static int MIN_PASS_LENGHT = 5;
     private User currUser;  //need to make this
     private int userType;
@@ -161,6 +159,15 @@ public class EarsSystem_ProjectMain extends Application {
                         adminP.getJobDes(), adminP.getNewChair(), adminP.getCommMembers(),adminApplication);
             } catch (EARSException | IOException exc ){
                 exc.printStackTrace();
+            }
+        });
+
+        // setting visibility of options in Application Pane
+        memberP.cboapplicants.setOnAction(event -> {
+            String name = memberP.cboapplicants.getValue();
+            for(JobApplication application: applications)
+                if(name.equals(application.getCandidateName())){
+                   // if(application)
             }
         });
 
