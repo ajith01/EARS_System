@@ -163,6 +163,8 @@ public class EarsSystem_ProjectMain extends Application {
                 exc.printStackTrace();
             }
         });
+
+
     }
 
     private void createNewApplication(String candName, String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems) throws EARSException{
