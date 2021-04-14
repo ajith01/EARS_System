@@ -47,7 +47,7 @@ public class JobApplication {
         if(!committeeMembers.contains(u) ) {
             throw new ApplicationException("User not part of committee");
         }
-        remarks.add(new Comment(s, new Date(), u));
+        remarks.add(new Comment(s, u));
     }
 //    public void setRemarks(Remark[] remarks) {
 //        this.remarks = remarks;

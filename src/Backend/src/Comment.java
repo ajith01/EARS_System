@@ -1,13 +1,10 @@
 package Backend.src;
-import java.util.Date;
 public class Comment{
-    private String remark;
-    private Date date;
+    private String comments;
     private Member committeeMember;
 
-    Comment(String remark, Date date, Member committeeMember) {
-        this.remark = remark;
-        this.date = date;
+    Comment(String remark, Member committeeMember) {
+        this.comments = remark;
         this.committeeMember = committeeMember;
     }
 
@@ -16,11 +13,7 @@ public class Comment{
     }
 
     public String getRemark() {
-        return remark;
+        return comments;
     }
 
-    public Date getDate() {
-        return date;
-    }
 }
-
