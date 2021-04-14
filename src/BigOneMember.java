@@ -36,11 +36,11 @@ public class BigOneMember extends Pane {
 	public Pane setUp() {
 
 		BorderPane pane = new BorderPane();
-		String[] services = { "---Select---", "Review Applicants", "Account Setting" };
+		String[] services = { "Review Applicants", "Account Setting" };
 		ObservableList<String> items = FXCollections.observableArrayList(services);
 		cbo.getItems().addAll(items);
 		cbo.setPrefWidth(400);
-		cbo.setValue(services[0]);
+		cbo.setValue("---Select---");
 		pane.setTop(cbo);
 
 		
@@ -53,9 +53,8 @@ public class BigOneMember extends Pane {
 
 		// FIXME: same issue as admin file. using the hlper to add appnames doesnt seem to work
 		// only these 3 names are gonna show up
-//		String[] appNames = { "Dan", "Ajith", "Arnav" };
-		appNames.add("Sam");
-		ObservableList<String> apps = FXCollections.observableArrayList(appNames);
+		String[] appNames = {};// = { "Dan", "Ajith", "Arnav" };
+		ObservableList<String> apps = FXCollections.observableArrayList();
 		cboapplicants.getItems().addAll(apps);
 		cboapplicants.setPrefWidth(1000);
 		cboapplicants.setValue("---Select Applicant---");
@@ -68,10 +67,9 @@ public class BigOneMember extends Pane {
 		paneSpecificApplicant.setPrefWidth(1000);
 
 		cboapplicants.setOnAction(e-> {
-			if (cboapplicants.getValue() == "Dan") {
-
+			//if (cboapplicants.getValue() == "Dan") {
 				paneSpecificApplicant.setCenter(setupPane(1000));
-			}
+			//}
 		} );
 
 		paneapplicant.setCenter(paneSpecificApplicant);
@@ -177,9 +175,7 @@ public class BigOneMember extends Pane {
 		cboprogress.getItems().addAll(items3);
 		cboprogress.setPrefWidth(1000);
 		cboprogress.setValue("Pending Review");
-//		cboprogress.setOnAction(event -> {
-//			items3.add("new");
-//		});
+
 
 		String descriptionAllcomments = "All Applicant Review Comments";
 		tfAllcomments.setText(descriptionAllcomments);
@@ -222,6 +218,6 @@ public class BigOneMember extends Pane {
 	}
 
 	public void setApplications(ArrayList<String> appNames) {
-		this.appNames.addAll(appNames);
+		cboapplicants.getItems().addAll(appNames);
 	}
 }
