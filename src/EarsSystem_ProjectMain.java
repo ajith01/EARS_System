@@ -450,6 +450,8 @@ public class EarsSystem_ProjectMain extends Application {
 
                 int numberOfMembers = Integer.parseInt((input.next().trim()));
 
+                System.out.println(numberOfMembers +" ," + numberOfChair);
+
 
                 for (int i = 0; i < numberOfMembers; i++) {
 
