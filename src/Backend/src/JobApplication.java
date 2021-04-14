@@ -95,6 +95,9 @@ public class JobApplication {
         comments.add(comment);
 
     }
+    public ArrayList<Comment> getComments(){
+        return comments;
+    }
 
     public Comment seeAUsersComment(Member member){
         int remarksSize = comments.size();
@@ -126,4 +129,7 @@ public class JobApplication {
         return false;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }
