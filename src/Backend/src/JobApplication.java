@@ -14,9 +14,9 @@ public class JobApplication {
     private int status;
 
     private ArrayList<Member> committeeMembers;
-    private ArrayList<Member> chair;
+    private ArrayList<Member> chair;   //want to be a string
 
-    private ArrayList<Comment> remarks;
+    private ArrayList<Comment> comments;
 
 
     public JobApplication(String name, String jobTitle, String description, Date startingDate,
@@ -30,6 +30,13 @@ public class JobApplication {
         this.committeeMembers = committeeMembers;
     }
 
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public String getCandidateName() {
+        return candidateName;
+    }
 
     public String getPosition() {
         return position;
@@ -40,14 +47,21 @@ public class JobApplication {
     }
 
     public ArrayList getRemarks() {
-        return remarks;
+        return comments;
     }
 
-    public void addRemark(String s, Member u){
-        if(!committeeMembers.contains(u) ) {
+    public void addRemark(String s, String u){
+
+        boolean memberExist = false;
+        for(int i = 0; i < committeeMembers.size();i++){
+            if(committeeMembers.get(i).getName().equals(u)){
+                memberExist = true;
+            }
+        }
+        if(!memberExist) {
             throw new ApplicationException("User not part of committee");
         }
-        remarks.add(new Comment(s, new Date(), u));
+        comments.add(new Comment(s, u));
     }
 //    public void setRemarks(Remark[] remarks) {
 //        this.remarks = remarks;
@@ -77,11 +91,16 @@ public class JobApplication {
         chair.add(member);
     }
 
+    public void addComment(Comment comment){
+        comments.add(comment);
+
+    }
+
     public Comment seeAUsersComment(Member member){
-        int remarksSize = remarks.size();
+        int remarksSize = comments.size();
         for(int i = 0; i < remarksSize;  i++){
-            if(((remarks.get(i)).getCommitteeMember()).equals(member)){
-                return remarks.get(i);
+            if(((comments.get(i)).getCommitteeMember()).equals(member)){
+                return comments.get(i);
 
             }
         }
@@ -95,6 +114,11 @@ public class JobApplication {
             if(user.getUsername().equals(usrName))
                 return true;
         }
+        return false;
+    }
+
+    public boolean hasChair(String usrName){
+
         for(Member user : chair){
             if(user.getUsername().equals(usrName))
                 return true;
@@ -102,12 +126,4 @@ public class JobApplication {
         return false;
     }
 
-
-    public String getCandidateName() {
-        return candidateName;
-    }
-
-    public void setCandidateName(String candidateName) {
-        this.candidateName = candidateName;
-    }
 }

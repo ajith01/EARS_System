@@ -167,15 +167,18 @@ public class EarsSystem_ProjectMain extends Application {
             String name = memberP.cboapplicants.getValue();
             for(JobApplication application: applications)
                 if(name.equals(application.getCandidateName())){
-                   // if(application)
+                    if(application.hasChair(currUser.getUsername())){
+                       memberP.setChair(true);
+                   }
             }
+            memberP.showCurrApplication();
         });
 
     }
 
     private void createNewApplication(String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems, File file) throws EARSException, IOException {
 
-//        if(candName.equals("--Enter Name--") || candName.equals("") || jobDes.equals("") ||  posName.equals(""))  //chair.equals("") ||
+//        if(jobDes.equals("") ||  posName.equals(""))  //chair.equals("") ||
 //            throw new EARSException("Some field was Empty, Try Again");
 
         // TODO:
@@ -187,7 +190,6 @@ public class EarsSystem_ProjectMain extends Application {
             String str  = "";
             for (int i = 0; i < commMems.size(); i++){
                 str += commMems.get(i) + ",";
-                System.out.println(str);
             }
 
             output.write( posName + "," + start.toString() +"," + end.toString() + ","
@@ -499,5 +501,79 @@ public class EarsSystem_ProjectMain extends Application {
         }
 
     }
+
+
+    public void addComments(String jobTitle, String candidateName,String username, String comment, File file){
+        ArrayList<String> temp = new ArrayList<>();
+
+        try(
+                java.io.FileWriter output = new FileWriter(file, true);
+                java.util.Scanner input = new Scanner(file);
+                ) {
+            input.useDelimiter(",");
+            String[] buffer;
+
+            while (input.hasNext()) {
+                buffer = (input.nextLine()).split(",");
+
+                if (buffer[0].equals(jobTitle) && buffer[1].equals(candidateName)) {
+                    buffer[2] += username+ "," + comment +"," + buffer[2];
+
+                }
+
+                temp.add(buffer[0] + " " + buffer[1] + " "
+                        + buffer[2] + " " + buffer[3] + " " + buffer[4] + "\n");
+
+            }
+            PrintWriter pw = new PrintWriter(file);
+            pw.print("");
+            pw.close();
+
+            for (int i = 0; i < temp.size(); i++) {
+                output.write(temp.get(i));
+            }
+
+
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readCommentsAndAddtoApplication(JobApplication application,File file){
+        try(
+                java.util.Scanner input = new Scanner(file);
+        ){
+            input.useDelimiter(",");
+            String[] buffer;
+            buffer = (input.nextLine()).split(",");
+
+            if(buffer[0].equals(application.getJobTitle()) && buffer[1].equals(application.getCandidateName())){
+                for(int i = 2; i < buffer.length; i+= 2){
+                    application.addComment(new Comment(buffer[i], buffer[i+1]));
+
+                }
+
+            }
+
+            ArrayList<Comment> comments = new ArrayList<Comment>();
+
+            while(input.hasNext()){
+                
+
+
+            }
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

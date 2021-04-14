@@ -31,6 +31,7 @@ public class BigOneMember extends Pane {
 	TextArea comments = new TextArea();
 	ComboBox<String> cboprogress = new ComboBox<>();
 	TextArea tfAllcomments = new TextArea();
+	BorderPane paneSpecificApplicant = new BorderPane();
 	private ArrayList<String> appNames = new ArrayList<>();
 	private boolean isChair = false;
 
@@ -62,17 +63,13 @@ public class BigOneMember extends Pane {
 
 		paneapplicant.setTop(cboapplicants);
 
-		BorderPane paneSpecificApplicant = new BorderPane();
 		paneSpecificApplicant.setPadding(new Insets(5, 5, 5, 5)); /// CHange
 		paneSpecificApplicant.setPrefHeight(700);
 		paneSpecificApplicant.setPrefWidth(1000);
 
-		cboapplicants.setOnAction(e-> {
-			//if (cboapplicants.getValue() == "Dan") {
-
-				paneSpecificApplicant.setCenter(setupPane(1000));
-			//}
-		} );
+//		cboapplicants.setOnAction(e-> {
+//				paneSpecificApplicant.setCenter(setupPane(1000));
+//		} );
 
 		paneapplicant.setCenter(paneSpecificApplicant);
 		BorderPane.setAlignment(paneSpecificApplicant, Pos.CENTER);
@@ -188,13 +185,17 @@ public class BigOneMember extends Pane {
 			cboprogress.hide();
 			tfAllcomments.setVisible(false);
 		}
+
 		ScrollPane scrollPaneAllcomments = new ScrollPane(tfAllcomments);
 		scrollPaneAllcomments.setPrefWidth(1000);
 
 		BorderPane mid = new BorderPane();
 		mid.setPadding(new Insets(5, 5, 5, 5));
-		mid.setTop(cboprogress);
-		mid.setCenter(scrollPaneAllcomments);
+
+		if(isChair){
+			mid.setTop(cboprogress);
+			mid.setCenter(scrollPaneAllcomments);
+		}
 
 		BorderPane apinfo = new BorderPane();
 		apinfo.setPrefHeight(1000);
@@ -230,5 +231,9 @@ public class BigOneMember extends Pane {
 
 	public void setChair(boolean val){
 		isChair = val;
+	}
+
+	public void showCurrApplication(){
+		paneSpecificApplicant.setCenter(setupPane(1000));
 	}
 }

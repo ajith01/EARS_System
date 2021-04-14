@@ -1,26 +1,19 @@
 package Backend.src;
-import java.util.Date;
 public class Comment{
-    private String remark;
-    private Date date;
-    private Member committeeMember;
+    private String comments;
+    private String committeeMember;
 
-    Comment(String remark, Date date, Member committeeMember) {
-        this.remark = remark;
-        this.date = date;
+    public Comment(String remark, String committeeMember) {
+        this.comments = remark;
         this.committeeMember = committeeMember;
     }
 
-    public Member getCommitteeMember() {
+    public String getCommitteeMember() {
         return committeeMember;
     }
 
     public String getRemark() {
-        return remark;
+        return comments;
     }
 
-    public Date getDate() {
-        return date;
-    }
 }
-
