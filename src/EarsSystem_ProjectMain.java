@@ -2,10 +2,8 @@ import Backend.src.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-//import org.*;//omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
-import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -13,7 +11,7 @@ import java.util.Scanner;
 public class EarsSystem_ProjectMain extends Application {
 
     private static int MIN_PASS_LENGHT = 5;
-    private User currUser;  //need to make this
+    private User currUser;
     private int userType;
     private final int memberType = 2;
     private final int adminType = 1;
@@ -77,13 +75,11 @@ public class EarsSystem_ProjectMain extends Application {
                 //assumes data is already loaded
                 try{setUser(logins.getUser(),members);} catch (EARSException earsException) {
                     earsException.printStackTrace();
-
                 }
 
-                System.out.println(currUser.getPositionType());
-                System.out.println(currUser.getName());
-                System.out.println(currUser.getUsername());
-
+//                System.out.println(currUser.getPositionType());
+//                System.out.println(currUser.getName());
+//                System.out.println(currUser.getUsername());
 
                 if(userType == memberType) {
                     primaryStage.setTitle("Member");
@@ -95,7 +91,7 @@ public class EarsSystem_ProjectMain extends Application {
                     primaryStage.setScene(sceneAdmin);
                     adminP.setMembers(getAdminData());
                 } else {
-                    //TODO:error
+                    System.out.println("Error: User type not found");
                 }
             }
         });
@@ -104,8 +100,6 @@ public class EarsSystem_ProjectMain extends Application {
         memberP.btSubmitac.setOnAction(event -> {
             try {
                 updateCurrUser(memberP.getEmail(), memberP.getPass());
-
-
                 makeChangeToUser(currUser.getUsername(),
                         memberP.getEmail(), 3,usrPwdfile );
                 makeChangeToUser(currUser.getUsername(),
@@ -121,7 +115,6 @@ public class EarsSystem_ProjectMain extends Application {
         // admin update account settings
         adminP.btSubmitac.setOnAction(event -> {
             try {
-
                 makeChangeToUser(currUser.getUsername(),
                         adminP.getEmail(), 3,usrPwdfile );
                 makeChangeToUser(currUser.getUsername(),
@@ -144,7 +137,6 @@ public class EarsSystem_ProjectMain extends Application {
                 }else{
                     posVal = 2;
                 }
-
                 makeNewUser(adminP.getUsername(),adminP.getTempPass(), adminP.getName(),
                         adminP.getNewEmail(),posVal, usrPwdfile);
                 System.out.println("User " + adminP.getUsername() + " has been Created");
@@ -168,7 +160,6 @@ public class EarsSystem_ProjectMain extends Application {
             String applicantName = memberP.getCurrAppName();
             boolean isChair = hasChairCurrUser(applicantName);
 
-
             System.out.println(isChair + " " + applicantName + "");
             memberP.setChair(isChair);
             if(isChair){
@@ -189,11 +180,6 @@ public class EarsSystem_ProjectMain extends Application {
 
     private void createNewApplication(String posName, Date start, Date end, String jobDes, String chair, ArrayList<String> commMems, File file) throws EARSException, IOException {
 
-//        if(jobDes.equals("") ||  posName.equals(""))  //chair.equals("") ||
-//            throw new EARSException("Some field was Empty, Try Again");
-
-        // TODO:
-
         try(
                 java.io.FileWriter output = new FileWriter(file, true);
 
@@ -209,12 +195,7 @@ public class EarsSystem_ProjectMain extends Application {
         }
         ArrayList<String> newlist = new ArrayList<>();
         newlist.add(chair);
-        JobApplication newApp;// = new JobApplication(candName, posName, jobDes, start, end, newlist, commMems);
-
-        // TODO:  manage with backend data after creating this
-
     }
-
 
     // Admin Related Helper Functions
     private ArrayList<String> getAdminData() {
@@ -222,8 +203,6 @@ public class EarsSystem_ProjectMain extends Application {
         for(Member user : members){
             memberNames.add(user.getName());
         }
-        //TODO: remove this dummy data later
-        // FIXME: this data will not come in the drop down since
         return memberNames;
     }
 
@@ -235,9 +214,9 @@ public class EarsSystem_ProjectMain extends Application {
                 System.out.println(app.getChair().get(i).getName());
             }
             if(app.hasMember(currUser.getUsername())){
-                appNames.add(app.getCandidateName());  //debugg this daata
+                appNames.add(app.getCandidateName());
             }else if(app.hasChair(currUser.getUsername())){
-                appNames.add(app.getCandidateName());  //debugg this daata
+                appNames.add(app.getCandidateName());
             }
         }
         return appNames;
@@ -295,9 +274,7 @@ public class EarsSystem_ProjectMain extends Application {
     }
 
     private void updateCurrUser(String email, String pass) throws EARSException {
-        // TODO: update user
 
-        // TODO: throw exception for invalid fields. Pass >= length 5, email has 1 '@'
         if(pass.length() < MIN_PASS_LENGHT){
             throw new EARSException("Email not Valid or Password Too Short! (5)");
         }
@@ -309,18 +286,15 @@ public class EarsSystem_ProjectMain extends Application {
     // ------- Login Helper Functions -------------------------------
 
     private void setUser(String username, ArrayList<Member> members) throws EARSException{
-        //TODO
         for(int i = 0; i < members.size(); i++) {
             if(members.get(i).getUsername().equals(username)){
                 currUser = members.get(i);
             }
         }
-
         if(currUser == null){
             throw new EARSException("User Not found. File corrupted");
         }
 
-        // TODO: this is the place where posotion types got switched
         if(currUser.getPositionType() == 1 || currUser.getPositionType() == 0){
         setUserType(1);
         }else{
@@ -335,7 +309,6 @@ public class EarsSystem_ProjectMain extends Application {
     public boolean logIn(String username, String password, File file) throws EARSException{
         String user;
         String pwd;
-
         try (
                 Scanner input = new Scanner(file);
         ) {
@@ -498,17 +471,13 @@ public class EarsSystem_ProjectMain extends Application {
                     }
                 }
 
-
-
                 applications.add(new JobApplication(name,jobTtle,description, new Date(startDate)
                         , new Date(endDate), chairList, commiteeList));
-
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     public void makeMembersAtStartUp(File file, ArrayList<Member> members){
@@ -540,7 +509,6 @@ public class EarsSystem_ProjectMain extends Application {
 
     }
 
-
     public void addComments(String jobTitle, String candidateName,String username, String comment, File file){
         ArrayList<String> temp = new ArrayList<>();
 
@@ -555,20 +523,15 @@ public class EarsSystem_ProjectMain extends Application {
             while (input.hasNext()) {
                 buffer = (input.nextLine()).split(",");
 
-
                 if (buffer[0].equals(jobTitle) && buffer[1].equals(candidateName)) {
                     buffer[2] =  comment + "," + username +"," + buffer[2];
                     val = true;
-
                 }
-
                 String str = "";
                 for(int i = 0; i < buffer.length; i++){
                     str += buffer[i] + ",";
                 }
-
                 temp.add(str + "\n" );
-
             }
             PrintWriter pw = new PrintWriter(file);
             pw.print("");
@@ -595,7 +558,6 @@ public class EarsSystem_ProjectMain extends Application {
         ) {
             input.useDelimiter(",");
             String[] buffer;
-
 
             while (input.hasNext()) {
                 buffer = (input.nextLine()).split(",");
