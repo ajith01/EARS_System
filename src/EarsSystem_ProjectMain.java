@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-
-//
+//Group 5 EARS project
+//citations: Liang, Daniel. Introduction to Java Programming: Comprehensive Version. Pearson, 2013.
 public class EarsSystem_ProjectMain extends Application {
 
     private static int MIN_PASS_LENGHT = 5;
