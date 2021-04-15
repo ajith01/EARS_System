@@ -22,21 +22,19 @@ public class BigoneAdmin extends Pane {
 	//cbo2 - for selecting type of new account in manage system users option
 
 	// these are for making new job application faculty search
-//	TextField candName = new TextField("--Enter Name--");
 	TextArea tfa = new TextArea();
 	TextField position = new TextField();
 	ComboBox<String> cbocc = new ComboBox<>();
 	DatePicker startDate = new DatePicker();
-	DatePicker endDate = new DatePicker(); // https://stackoverflow.com/questions/33281588/creating-a-calendar-using-javafx
+	DatePicker endDate = new DatePicker();
 	Button btSubmitjob = new Button("Submit");
 
 	// for drop down chair selection
-	ArrayList<String> systemMembers = new ArrayList<>();// = { "Danyal", "Ajith", "Arnav",};
+	ArrayList<String> systemMembers = new ArrayList<>();
 	// for returning
 	ArrayList<String> selectedMembers = new ArrayList<>();
-//	ObservableList<String> selected;
-	// TODO: this abc needs to use the above arraylist of all user names . it is giving error for now so i left it as it is
-	String[] abc = {};//{ "Danyal", "Ajith", "Arnav",};
+
+	String[] abc = {};
 	ListView<String> lv = new ListView<>(FXCollections.observableArrayList(abc));
 
 	// these are for self account settings
@@ -145,17 +143,10 @@ public class BigoneAdmin extends Pane {
 		position.setEditable(true);
 
 
-		// Select a Committee Chair
-//		String[] chooseCommitteeChair = { "List", "List" }; // NOT REQUIRED IN FINAL PRODUCT
-//		systemMembers.add("Arnav");
-//		systemMembers.add("Dan");
-//		systemMembers.add("Ajith");
 		ObservableList<String> itemsfromfacultydatabase = FXCollections.observableArrayList(systemMembers); // Array
 		cbocc.getItems().addAll(itemsfromfacultydatabase);
 		cbocc.setPrefWidth(200);
 		cbocc.setValue("---Select Chair---");
-
-
 
 		// Put it all together
 		HBox hboxra = new HBox();
@@ -169,19 +160,6 @@ public class BigoneAdmin extends Pane {
 		btSubmitjob.setStyle("-fx-border-color: black;");
 		lv.setPrefSize(400, 400);
 		lv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-//		// Event Handler
-//		btSubmitjob.setOnAction(e->{
-////			lv.getSelectionModel().selectedItemProperty().addListener(
-////					ov -> {
-////						for (Integer i: lv.getSelectionModel().getSelectedIndices()) {
-////							///TODO: Add to commitee members to job should make a way to access this from helper
-////
-////						}
-////					});
-//					setSelectedMembers(lv.getSelectionModel().selectedItemProperty());
-//					}
-//					);
 
 
 		ScrollPane scrollPaneCommittee = new ScrollPane(lv);
@@ -253,15 +231,9 @@ public class BigoneAdmin extends Pane {
 		});
 
 
-//----------------------------------------------------------------------------
-
 		return pane;
 
 	}
-
-//	private void setSelectedMembers(ReadOnlyObjectProperty<String> mems) {
-//		selectedMembers.addAll(selected);
-//	}
 
 	// Account Setting Helpers
 	public String getEmail() {
@@ -307,9 +279,7 @@ public class BigoneAdmin extends Pane {
 	public String getJobDes(){
 		return tfa.getText();
 	}
-//	public String getCandName() {
-//		return candName.getText();
-//	}
+
 	public String getNewJobPosition(){
 		return  position.getText();
 	}

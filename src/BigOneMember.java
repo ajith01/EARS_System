@@ -67,10 +67,6 @@ public class BigOneMember extends Pane {
 		paneSpecificApplicant.setPrefHeight(700);
 		paneSpecificApplicant.setPrefWidth(1000);
 
-//		cboapplicants.setOnAction(e-> {
-//				paneSpecificApplicant.setCenter(setupPane(1000));
-//		} );
-
 		paneapplicant.setCenter(paneSpecificApplicant);
 		BorderPane.setAlignment(paneSpecificApplicant, Pos.CENTER);
 
@@ -110,28 +106,26 @@ public class BigOneMember extends Pane {
 
 		// ------------------------------------------------------------------------------------------
 
-				BorderPane pf2 = new BorderPane();
-				StackPane pf = new StackPane();
+			BorderPane pf2 = new BorderPane();
+			StackPane pf = new StackPane();
 
 
-				cbo.setOnAction(e -> {
+			cbo.setOnAction(e -> {
 
-					if (cbo.getValue() == "Review Applicants") {
-						pf.getChildren().clear();
-						pf2.setCenter(paneapplicant);
-						pane.setCenter(pf2);
-					}
+				if (cbo.getValue() == "Review Applicants") {
+					pf.getChildren().clear();
+					pf2.setCenter(paneapplicant);
+					pane.setCenter(pf2);
+				}
 
-					else if (cbo.getValue() == "Account Setting") {
-						pf.getChildren().clear();
-						pf.getChildren().add(paneac);
-						pane.setCenter(pf);
-					}
+				else if (cbo.getValue() == "Account Setting") {
+					pf.getChildren().clear();
+					pf.getChildren().add(paneac);
+					pane.setCenter(pf);
+				}
 
-				});
+			});
 					
-
-		//----------------------------------------------------------------------------	
 
 		return pane;
 
@@ -140,15 +134,11 @@ public class BigOneMember extends Pane {
 
 	private Node setupPane(int i) {
 
-		String tfcApplicantName = "Position";
-		//JobName.setText(tfcApplicantName);
+
 		JobName.setEditable(false);
 		JobName.setPrefWidth(1000);
 		JobName.setAlignment(Pos.CENTER);
 
-
-		String description = "Application Description";
-		//tfa.setText(description);
 		tfa.setEditable(false);
 		tfa.setPrefWidth(1000);
 		ScrollPane scrollPane = new ScrollPane(tfa);
@@ -177,8 +167,6 @@ public class BigOneMember extends Pane {
 		cboprogress.setPrefWidth(1000);
 		cboprogress.setValue("Pending Review");
 
-		String descriptionAllcomments = "All Applicant Review Comments";
-		//tfAllcomments.setText(descriptionAllcomments);
 		tfAllcomments.setEditable(false);
 		tfAllcomments.setPrefWidth(1000);
 

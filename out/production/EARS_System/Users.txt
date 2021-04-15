@@ -1,3 +1,0 @@
-Arnav	Ar	chair	aa	za	Arnav@gmail.com
-Dan	Dam	member	ab	zb	Ajith@gmail.com
-Ajith	Aj	admin	ac	zc	Danyal@gmail.com
